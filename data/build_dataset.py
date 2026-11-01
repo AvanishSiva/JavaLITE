@@ -2,7 +2,7 @@ import json, os
 import pyarrow as pa, pyarrow.parquet as pq
 from datasets import load_dataset
 from kaggle_secrets import UserSecretsClient
-from data.filters import keep, parses, split_of
+from data.filters import keep, parser, split_of
 
 os.environ["HF_TOKEN"] = UserSecretsClient().get_secret("HF_TOKEN")
 TARGET_BYTES = int(float(os.environ.get("TARGET_BYTES", 8e9)))  
