@@ -28,7 +28,7 @@ def flush(split):
 for row in ds:
     funnel["seen"] = funnel.get("seen", 0) + 1
     ok, why = keep(row)
-    if ok and not parses(row["content"]):
+    if ok and not parser(row["content"]):
         ok, why = False, "parse"
     funnel[why] = funnel.get(why, 0) + 1
     if not ok:
