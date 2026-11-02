@@ -4,8 +4,6 @@ from tokenizers import ByteLevelBPETokenizer
 
 input_dir = "/kaggle/input/datasets/sivaavanish/javalite-java-clean/clean"
 
-def clean(code):
-    return "\n".join(line.rstrip() for line in code.replace("\r\n", "\n").split("\n"))
 
 SPECIAL = [
     "<|endoftext|>",                                       # 0: end of a file
