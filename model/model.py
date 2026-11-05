@@ -42,4 +42,21 @@ class CausalSelfAttention(nn.Module):
         out = attn.transpose(1,2).contiguous().view(B, T, C)
 
         return self.resid_drop(self.c_proj(out))
-        
+
+
+class MLP(nn.Module):
+    def __init__(self, config):
+        super().__init__()
+        self.expand = nn.Linear(config.n_embd, 4 * config.n_embd)
+        self.gelu = nn.GELU(approximate='tanh')
+        self.project = nn.Linear(4 * config.n_embd, config.n_embd)
+        self.drop = nn.Dropout(config.dropout)
+
+    def forward(self, x):
+        return self.drop(
+            self.project(
+                self.gelu(
+                    self.expand(x)
+                )
+            )
+        )
