@@ -1,1 +1,4 @@
 .javalite/
+.env
+others/
+*.pyc
