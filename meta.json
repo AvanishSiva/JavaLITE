@@ -1,0 +1,9 @@
+{
+    "dtype": "uint16", 
+    "vocab_size": 16384, 
+    "eot_id": null,
+    "fim_rate": 0.5, 
+    "seed": 1337,
+    "train_tokens": 2086566818, 
+    "val_tokens": 22055000
+}
