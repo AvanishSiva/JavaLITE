@@ -38,12 +38,12 @@ class MLP(nn.Module):
         super().__init__()
         self.expand = nn.Linear(config.n_embd, 4 * config.n_embd)
         self.gelu = nn.GELU(approximate='tanh')
-        self.project = nn.Linear(4 * config.n_embd, config.n_embd)
+        self.c_proj = nn.Linear(4 * config.n_embd, config.n_embd)
         self.drop = nn.Dropout(config.dropout)
 
     def forward(self, x):
         return self.drop(
-            self.project(
+            self.c_proj(
                 self.gelu(
                     self.expand(x)
                 )
