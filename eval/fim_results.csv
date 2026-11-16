@@ -1,0 +1,5 @@
+model,metric,n,count,score,date
+Qwen2.5-Coder-0.5B,fim_compile,300,242,80.7,2026-11-15
+Qwen2.5-Coder-0.5B,fim_exact_match,300,68,22.7,2026-11-15
+Qwen2.5-Coder-0.5B,fim_edit_sim,300,,55.7,2026-11-15
+empty_baseline,fim_compile,300,137,45.7,2026-11-15
