@@ -5,7 +5,13 @@ MODEL = "Qwen/Qwen2.5-Coder-0.5B-Instruct"
 tok = AutoTokenizer.from_pretrained(MODEL)
 model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float16).to("cuda").eval()
 
-SYSTEM = """You edit one Java file. Reply with ONLY one or more blocks in this format: <<<<<<< SEARCH exact lines from the file ======= replacement lines >>>>>>> REPLACE The SEARCH text must match the file exactly."""
+SYSTEM = """You edit one Java file. Reply with ONLY one or more blocks in this format:
+<<<<<<< SEARCH
+exact lines from the file
+=======
+replacement lines
+>>>>>>> REPLACE
+The SEARCH text must match the file exactly."""
 
 BLOCK = re.compile(r"<<<<<<< SEARCH\n(.*?)\n=======\n(.*?)\n?>>>>>>> REPLACE", re.S)
 
