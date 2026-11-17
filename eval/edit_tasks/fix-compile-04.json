@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-04",
+  "type": "fix_compile_error",
+  "instruction": "area() fails to compile with \"cannot find symbol\".",
+  "before": "public class Rectangle {\n    private final double width;\n    private final double height;\n\n    public Rectangle(double width, double height) {\n        this.width = width;\n        this.height = height;\n    }\n\n    public double area() {\n        return widht * height;\n    }\n\n    public double perimeter() {\n        return 2 * (width + height);\n    }\n}\n",
+  "after": "public class Rectangle {\n    private final double width;\n    private final double height;\n\n    public Rectangle(double width, double height) {\n        this.width = width;\n        this.height = height;\n    }\n\n    public double area() {\n        return width * height;\n    }\n\n    public double perimeter() {\n        return 2 * (width + height);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        Rectangle r = new Rectangle(3, 4.5);\n        if (!(Math.abs((r.area()) - (13.5)) < 1e-9)) throw new AssertionError(\"area\");\n        if (!(Math.abs((r.perimeter()) - (15)) < 1e-9)) throw new AssertionError(\"perimeter\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

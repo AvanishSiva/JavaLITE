@@ -1,0 +1,8 @@
+{
+  "id": "rename-01",
+  "type": "rename",
+  "instruction": "Rename c2f to celsiusToFahrenheit.",
+  "before": "public class TempConverter {\n    public static double c2f(double c) {\n        return c * 9 / 5 + 32;\n    }\n\n    public static double f2c(double f) {\n        return (f - 32) * 5 / 9;\n    }\n}\n",
+  "after": "public class TempConverter {\n    public static double celsiusToFahrenheit(double c) {\n        return c * 9 / 5 + 32;\n    }\n\n    public static double f2c(double f) {\n        return (f - 32) * 5 / 9;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Math.abs((TempConverter.celsiusToFahrenheit(100)) - (212)) < 1e-9)) throw new AssertionError(\"100C\");\n        if (!(Math.abs((TempConverter.celsiusToFahrenheit(-40)) - (-40)) < 1e-9)) throw new AssertionError(\"-40C\");\n        if (!(Math.abs((TempConverter.f2c(32)) - (0)) < 1e-9)) throw new AssertionError(\"f2c\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

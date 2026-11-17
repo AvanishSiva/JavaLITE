@@ -1,0 +1,8 @@
+{
+  "id": "rename-06",
+  "type": "rename",
+  "instruction": "Rename the constant MAX to MAX_RETRIES.",
+  "before": "public class RetryPolicy {\n    public static final int MAX = 3;\n\n    public static boolean shouldRetry(int attempts) {\n        return attempts < MAX;\n    }\n\n    public static long backoffMillis(int attempt) {\n        return 100L * (1L << Math.min(attempt, MAX));\n    }\n}\n",
+  "after": "public class RetryPolicy {\n    public static final int MAX_RETRIES = 3;\n\n    public static boolean shouldRetry(int attempts) {\n        return attempts < MAX_RETRIES;\n    }\n\n    public static long backoffMillis(int attempt) {\n        return 100L * (1L << Math.min(attempt, MAX_RETRIES));\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(RetryPolicy.MAX_RETRIES == 3)) throw new AssertionError(\"constant value\");\n        if (!(RetryPolicy.shouldRetry(2) && !RetryPolicy.shouldRetry(3))) throw new AssertionError(\"shouldRetry\");\n        if (!(RetryPolicy.backoffMillis(1) == 200 && RetryPolicy.backoffMillis(10) == 800)) throw new AssertionError(\"backoff\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

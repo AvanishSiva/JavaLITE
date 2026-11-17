@@ -1,0 +1,8 @@
+{
+  "id": "add-logging-02",
+  "type": "add_logging",
+  "instruction": "Print \"Cleaning file name: <name>\" to System.out before cleaning, using the original input.",
+  "before": "public class FileNameCleaner {\n    public static String clean(String name) {\n        String s = name.trim().toLowerCase();\n        s = s.replaceAll(\"[^a-z0-9.]+\", \"-\");\n        return s;\n    }\n}\n",
+  "after": "public class FileNameCleaner {\n    public static String clean(String name) {\n        System.out.println(\"Cleaning file name: \" + name);\n        String s = name.trim().toLowerCase();\n        s = s.replaceAll(\"[^a-z0-9.]+\", \"-\");\n        return s;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        String[] r = new String[1];\n        String out = capture(() -> r[0] = FileNameCleaner.clean(\"My File.TXT\"));\n        if (!(out.contains(\"Cleaning file name: My File.TXT\"))) throw new AssertionError(\"missing log\");\n        if (!(\"my-file.txt\".equals(r[0]))) throw new AssertionError(\"behavior changed\");\n        System.out.println(\"PASS\");\n    }\n\n    static String capture(Runnable r) {\n        java.io.PrintStream original = System.out;\n        java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream();\n        System.setOut(new java.io.PrintStream(buf, true));\n        try { r.run(); } finally { System.setOut(original); }\n        return buf.toString();\n    }\n}\n"
+}

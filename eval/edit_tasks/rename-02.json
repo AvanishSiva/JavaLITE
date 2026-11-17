@@ -1,0 +1,8 @@
+{
+  "id": "rename-02",
+  "type": "rename",
+  "instruction": "Rename the field n to count.",
+  "before": "public class ClickCounter {\n    public int n;\n\n    public void click() {\n        n++;\n    }\n\n    public void reset() {\n        n = 0;\n    }\n}\n",
+  "after": "public class ClickCounter {\n    public int count;\n\n    public void click() {\n        count++;\n    }\n\n    public void reset() {\n        count = 0;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        ClickCounter c = new ClickCounter();\n        c.click(); c.click();\n        if (!(c.count == 2)) throw new AssertionError(\"after two clicks\");\n        c.reset();\n        if (!(c.count == 0)) throw new AssertionError(\"after reset\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

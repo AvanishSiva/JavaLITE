@@ -1,0 +1,8 @@
+{
+  "id": "add-parameter-01",
+  "type": "add_parameter",
+  "instruction": "Add a String parameter `greeting` as the first parameter of hello() and use it instead of the hard-coded \"Hello\".",
+  "before": "public class Greeting {\n    public static String hello(String name) {\n        return \"Hello, \" + name + \"!\";\n    }\n}\n",
+  "after": "public class Greeting {\n    public static String hello(String greeting, String name) {\n        return greeting + \", \" + name + \"!\";\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Greeting.hello(\"Hi\", \"Bo\").equals(\"Hi, Bo!\"))) throw new AssertionError(\"custom greeting\");\n        if (!(Greeting.hello(\"Hello\", \"Ann\").equals(\"Hello, Ann!\"))) throw new AssertionError(\"hello\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-02",
+  "type": "fix_compile_error",
+  "instruction": "of() fails with \"incompatible types: possible lossy conversion from double to int\". It should return the exact average, so {1, 2} gives 1.5.",
+  "before": "public class Average {\n    public static double of(int[] xs) {\n        int sum = 0;\n        for (int x : xs) {\n            sum += x;\n        }\n        int avg = (double) sum / xs.length;\n        return avg;\n    }\n}\n",
+  "after": "public class Average {\n    public static double of(int[] xs) {\n        int sum = 0;\n        for (int x : xs) {\n            sum += x;\n        }\n        double avg = (double) sum / xs.length;\n        return avg;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Math.abs((Average.of(new int[]{1, 2})) - (1.5)) < 1e-9)) throw new AssertionError(\"1.5\");\n        if (!(Math.abs((Average.of(new int[]{3, 3, 4})) - (10.0 / 3)) < 1e-9)) throw new AssertionError(\"thirds\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

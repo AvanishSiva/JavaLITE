@@ -1,0 +1,8 @@
+{
+  "id": "null-check-03",
+  "type": "add_null_check",
+  "instruction": "sum() crashes on null elements. Skip nulls in the list, and return 0 if the list itself is null.",
+  "before": "import java.util.List;\n\npublic class ListMath {\n    public static int sum(List<Integer> nums) {\n        int total = 0;\n        for (Integer n : nums) {\n            total += n;\n        }\n        return total;\n    }\n}\n",
+  "after": "import java.util.List;\n\npublic class ListMath {\n    public static int sum(List<Integer> nums) {\n        if (nums == null) {\n            return 0;\n        }\n        int total = 0;\n        for (Integer n : nums) {\n            if (n != null) {\n                total += n;\n            }\n        }\n        return total;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(ListMath.sum(java.util.Arrays.asList(1, null, 2, null)) == 3)) throw new AssertionError(\"null elements\");\n        if (!(ListMath.sum(null) == 0)) throw new AssertionError(\"null list\");\n        if (!(ListMath.sum(java.util.List.of(4, 5)) == 9)) throw new AssertionError(\"normal\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

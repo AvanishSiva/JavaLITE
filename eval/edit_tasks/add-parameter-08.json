@@ -1,0 +1,8 @@
+{
+  "id": "add-parameter-08",
+  "type": "add_parameter",
+  "instruction": "Add a `double initialBalance` parameter as the second constructor parameter and start the balance at that value.",
+  "before": "public class Account {\n    private final String owner;\n    private double balance;\n\n    public Account(String owner) {\n        this.owner = owner;\n        this.balance = 0;\n    }\n\n    public void deposit(double amount) {\n        balance += amount;\n    }\n\n    public double getBalance() {\n        return balance;\n    }\n\n    public String getOwner() {\n        return owner;\n    }\n}\n",
+  "after": "public class Account {\n    private final String owner;\n    private double balance;\n\n    public Account(String owner, double initialBalance) {\n        this.owner = owner;\n        this.balance = initialBalance;\n    }\n\n    public void deposit(double amount) {\n        balance += amount;\n    }\n\n    public double getBalance() {\n        return balance;\n    }\n\n    public String getOwner() {\n        return owner;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        Account acct = new Account(\"Ann\", 50);\n        if (!(Math.abs((acct.getBalance()) - (50)) < 1e-9)) throw new AssertionError(\"initial balance\");\n        acct.deposit(25);\n        if (!(Math.abs((acct.getBalance()) - (75)) < 1e-9 && acct.getOwner().equals(\"Ann\"))) throw new AssertionError(\"deposit/owner\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

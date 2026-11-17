@@ -1,0 +1,8 @@
+{
+  "id": "extract-method-05",
+  "type": "extract_method",
+  "instruction": "Extract the padding loop into `static String padRight(String s, int width)` that pads s with spaces up to width. Strings that are already long enough come back unchanged.",
+  "before": "public class ReportLine {\n    public static String format(String name, int qty) {\n        String n = name;\n        while (n.length() < 12) {\n            n = n + \" \";\n        }\n        return n + \"| \" + qty;\n    }\n}\n",
+  "after": "public class ReportLine {\n    static String padRight(String s, int width) {\n        String n = s;\n        while (n.length() < width) {\n            n = n + \" \";\n        }\n        return n;\n    }\n\n    public static String format(String name, int qty) {\n        return padRight(name, 12) + \"| \" + qty;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(ReportLine.padRight(\"ab\", 5).equals(\"ab   \"))) throw new AssertionError(\"pads\");\n        if (!(ReportLine.padRight(\"abcdef\", 3).equals(\"abcdef\"))) throw new AssertionError(\"long string unchanged\");\n        if (!(ReportLine.format(\"pen\", 2).equals(\"pen\" + \" \".repeat(9) + \"| 2\"))) throw new AssertionError(\"format\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "rename-04",
+  "type": "rename",
+  "instruction": "Rename the nested class Pt to Point.",
+  "before": "public class Geometry {\n    public static class Pt {\n        public final double x, y;\n\n        public Pt(double x, double y) {\n            this.x = x;\n            this.y = y;\n        }\n    }\n\n    public static double distance(Pt a, Pt b) {\n        return Math.hypot(a.x - b.x, a.y - b.y);\n    }\n\n    public static Pt midpoint(Pt a, Pt b) {\n        return new Pt((a.x + b.x) / 2, (a.y + b.y) / 2);\n    }\n}\n",
+  "after": "public class Geometry {\n    public static class Point {\n        public final double x, y;\n\n        public Point(double x, double y) {\n            this.x = x;\n            this.y = y;\n        }\n    }\n\n    public static double distance(Point a, Point b) {\n        return Math.hypot(a.x - b.x, a.y - b.y);\n    }\n\n    public static Point midpoint(Point a, Point b) {\n        return new Point((a.x + b.x) / 2, (a.y + b.y) / 2);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        Geometry.Point p = new Geometry.Point(0, 0);\n        Geometry.Point q = new Geometry.Point(3, 4);\n        if (!(Math.abs((Geometry.distance(p, q)) - (5)) < 1e-9)) throw new AssertionError(\"distance\");\n        Geometry.Point m = Geometry.midpoint(p, q);\n        if (!(Math.abs((m.x) - (1.5)) < 1e-9 && Math.abs((m.y) - (2)) < 1e-9)) throw new AssertionError(\"midpoint\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

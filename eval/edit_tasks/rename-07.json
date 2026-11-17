@@ -1,0 +1,8 @@
+{
+  "id": "rename-07",
+  "type": "rename",
+  "instruction": "Rename isLeap to isLeapYear and update the caller.",
+  "before": "public class DateHelper {\n    public static boolean isLeap(int year) {\n        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n    }\n\n    public static int daysInYear(int year) {\n        return isLeap(year) ? 366 : 365;\n    }\n}\n",
+  "after": "public class DateHelper {\n    public static boolean isLeapYear(int year) {\n        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n    }\n\n    public static int daysInYear(int year) {\n        return isLeapYear(year) ? 366 : 365;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(DateHelper.isLeapYear(2000) && DateHelper.isLeapYear(2024))) throw new AssertionError(\"leap years\");\n        if (!(!DateHelper.isLeapYear(1900) && !DateHelper.isLeapYear(2026))) throw new AssertionError(\"non-leap years\");\n        if (!(DateHelper.daysInYear(2024) == 366 && DateHelper.daysInYear(2025) == 365)) throw new AssertionError(\"daysInYear\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

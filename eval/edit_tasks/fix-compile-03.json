@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-03",
+  "type": "fix_compile_error",
+  "instruction": "readFirstLine() gives a compile error about an unreported IOException. Make it compile; it's fine for callers to handle the exception.",
+  "before": "import java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.List;\n\npublic class ConfigLoader {\n    public static String readFirstLine(String path) {\n        List<String> lines = Files.readAllLines(Paths.get(path));\n        return lines.isEmpty() ? \"\" : lines.get(0);\n    }\n}\n",
+  "after": "import java.io.IOException;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\nimport java.util.List;\n\npublic class ConfigLoader {\n    public static String readFirstLine(String path) throws IOException {\n        List<String> lines = Files.readAllLines(Paths.get(path));\n        return lines.isEmpty() ? \"\" : lines.get(0);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) throws Exception {\n        java.nio.file.Path f = java.nio.file.Files.createTempFile(\"cfg\", \".txt\");\n        java.nio.file.Files.writeString(f, \"a=1\\nb=2\\n\");\n        if (!(\"a=1\".equals(ConfigLoader.readFirstLine(f.toString())))) throw new AssertionError(\"first line\");\n        java.nio.file.Files.writeString(f, \"\");\n        if (!(\"\".equals(ConfigLoader.readFirstLine(f.toString())))) throw new AssertionError(\"empty file\");\n        java.nio.file.Files.delete(f);\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

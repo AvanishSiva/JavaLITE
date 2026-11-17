@@ -1,0 +1,8 @@
+{
+  "id": "add-parameter-06",
+  "type": "add_parameter",
+  "instruction": "Add a boolean parameter `inclusive` at the end of contains(). When it's false, the start and end dates themselves don't count.",
+  "before": "import java.time.LocalDate;\n\npublic class DateRange {\n    public static boolean contains(LocalDate start, LocalDate end, LocalDate day) {\n        return !day.isBefore(start) && !day.isAfter(end);\n    }\n}\n",
+  "after": "import java.time.LocalDate;\n\npublic class DateRange {\n    public static boolean contains(LocalDate start, LocalDate end, LocalDate day, boolean inclusive) {\n        if (inclusive) {\n            return !day.isBefore(start) && !day.isAfter(end);\n        }\n        return day.isAfter(start) && day.isBefore(end);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        java.time.LocalDate s = java.time.LocalDate.of(2026, 6, 1);\n        java.time.LocalDate e = java.time.LocalDate.of(2026, 6, 30);\n        java.time.LocalDate mid = java.time.LocalDate.of(2026, 6, 15);\n        if (!(DateRange.contains(s, e, mid, true) && DateRange.contains(s, e, mid, false))) throw new AssertionError(\"middle date\");\n        if (!(DateRange.contains(s, e, s, true) && DateRange.contains(s, e, e, true))) throw new AssertionError(\"inclusive ends\");\n        if (!(!DateRange.contains(s, e, s, false) && !DateRange.contains(s, e, e, false))) throw new AssertionError(\"exclusive ends\");\n        if (!(!DateRange.contains(s, e, java.time.LocalDate.of(2026, 7, 1), true))) throw new AssertionError(\"outside\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

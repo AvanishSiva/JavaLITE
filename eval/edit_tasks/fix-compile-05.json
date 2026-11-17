@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-05",
+  "type": "fix_compile_error",
+  "instruction": "This won't compile (\"unexpected type\" on the list). upTo(n) should return the squares 1, 4, 9, ... up to n*n.",
+  "before": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class Squares {\n    public static List<int> upTo(int n) {\n        List<int> out = new ArrayList<>();\n        for (int i = 1; i <= n; i++) {\n            out.add(i * i);\n        }\n        return out;\n    }\n}\n",
+  "after": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class Squares {\n    public static List<Integer> upTo(int n) {\n        List<Integer> out = new ArrayList<>();\n        for (int i = 1; i <= n; i++) {\n            out.add(i * i);\n        }\n        return out;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        java.util.List<Integer> r = Squares.upTo(4);\n        if (!(r.equals(java.util.List.of(1, 4, 9, 16)))) throw new AssertionError(\"squares\");\n        if (!(Squares.upTo(0).isEmpty())) throw new AssertionError(\"n = 0\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

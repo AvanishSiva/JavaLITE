@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-01",
+  "type": "fix_compile_error",
+  "instruction": "letter() doesn't compile: \"missing return statement\". Anything below 60 should be an \"F\".",
+  "before": "public class Grades {\n    public static String letter(int score) {\n        if (score >= 90) {\n            return \"A\";\n        } else if (score >= 75) {\n            return \"B\";\n        } else if (score >= 60) {\n            return \"C\";\n        }\n    }\n}\n",
+  "after": "public class Grades {\n    public static String letter(int score) {\n        if (score >= 90) {\n            return \"A\";\n        } else if (score >= 75) {\n            return \"B\";\n        } else if (score >= 60) {\n            return \"C\";\n        }\n        return \"F\";\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Grades.letter(95).equals(\"A\") && Grades.letter(80).equals(\"B\") && Grades.letter(60).equals(\"C\"))) throw new AssertionError(\"grades\");\n        if (!(Grades.letter(59).equals(\"F\") && Grades.letter(0).equals(\"F\"))) throw new AssertionError(\"fail grade\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

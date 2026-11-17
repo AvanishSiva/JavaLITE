@@ -1,0 +1,8 @@
+{
+  "id": "add-parameter-04",
+  "type": "add_parameter",
+  "instruction": "Replace the hard-coded page size with a new third parameter `int pageSize`.",
+  "before": "import java.util.List;\n\npublic class Paginator {\n    public static List<String> page(List<String> items, int pageNumber) {\n        int size = 10;\n        int from = Math.min(pageNumber * size, items.size());\n        int to = Math.min(from + size, items.size());\n        return items.subList(from, to);\n    }\n}\n",
+  "after": "import java.util.List;\n\npublic class Paginator {\n    public static List<String> page(List<String> items, int pageNumber, int pageSize) {\n        int from = Math.min(pageNumber * pageSize, items.size());\n        int to = Math.min(from + pageSize, items.size());\n        return items.subList(from, to);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        java.util.List<String> items = java.util.List.of(\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\");\n        if (!(Paginator.page(items, 1, 3).equals(java.util.List.of(\"d\", \"e\", \"f\")))) throw new AssertionError(\"middle page\");\n        if (!(Paginator.page(items, 2, 3).equals(java.util.List.of(\"g\")))) throw new AssertionError(\"last page\");\n        if (!(Paginator.page(items, 5, 3).isEmpty())) throw new AssertionError(\"past the end\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

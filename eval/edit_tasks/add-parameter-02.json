@@ -1,0 +1,8 @@
+{
+  "id": "add-parameter-02",
+  "type": "add_parameter",
+  "instruction": "Add a `double rate` parameter after price and use it instead of the fixed 10% (0.25 means 25% off).",
+  "before": "public class Pricing {\n    public static double discounted(double price) {\n        if (price < 0) {\n            throw new IllegalArgumentException(\"negative price\");\n        }\n        return price - price * 0.10;\n    }\n}\n",
+  "after": "public class Pricing {\n    public static double discounted(double price, double rate) {\n        if (price < 0) {\n            throw new IllegalArgumentException(\"negative price\");\n        }\n        return price - price * rate;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Math.abs((Pricing.discounted(200, 0.25)) - (150)) < 1e-9)) throw new AssertionError(\"25% off\");\n        if (!(Math.abs((Pricing.discounted(80, 0)) - (80)) < 1e-9)) throw new AssertionError(\"no discount\");\n        try { Pricing.discounted(-1, 0.1); throw new AssertionError(\"negative price accepted\"); }\n        catch (IllegalArgumentException expected) { }\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

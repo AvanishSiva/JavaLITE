@@ -1,0 +1,8 @@
+{
+  "id": "extract-method-04",
+  "type": "extract_method",
+  "instruction": "Extract the mean calculation in variance() into `static double average(int[] values)`.",
+  "before": "public class Stats {\n    public static double variance(int[] xs) {\n        double total = 0;\n        for (int x : xs) total += x;\n        double m = total / xs.length;\n        double sq = 0;\n        for (int x : xs) sq += (x - m) * (x - m);\n        return sq / xs.length;\n    }\n\n    public static double stdDev(int[] xs) {\n        return Math.sqrt(variance(xs));\n    }\n}\n",
+  "after": "public class Stats {\n    static double average(int[] values) {\n        double total = 0;\n        for (int x : values) total += x;\n        return total / values.length;\n    }\n\n    public static double variance(int[] xs) {\n        double m = average(xs);\n        double sq = 0;\n        for (int x : xs) sq += (x - m) * (x - m);\n        return sq / xs.length;\n    }\n\n    public static double stdDev(int[] xs) {\n        return Math.sqrt(variance(xs));\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Math.abs((Stats.average(new int[]{2, 4, 6})) - (4)) < 1e-9)) throw new AssertionError(\"average\");\n        if (!(Math.abs((Stats.average(new int[]{1, 2})) - (1.5)) < 1e-9)) throw new AssertionError(\"fractional average\");\n        if (!(Math.abs((Stats.variance(new int[]{2, 4, 6})) - (8.0 / 3)) < 1e-9)) throw new AssertionError(\"variance\");\n        if (!(Math.abs((Stats.stdDev(new int[]{5, 5, 5})) - (0)) < 1e-9)) throw new AssertionError(\"stdDev\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "rename-05",
+  "type": "rename",
+  "instruction": "Rename tot() to totalPrice().",
+  "before": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ShoppingCart {\n    private final List<Integer> prices = new ArrayList<>();\n\n    public void add(int priceCents) {\n        prices.add(priceCents);\n    }\n\n    public int tot() {\n        int sum = 0;\n        for (int p : prices) sum += p;\n        return sum;\n    }\n\n    public int itemCount() {\n        return prices.size();\n    }\n}\n",
+  "after": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ShoppingCart {\n    private final List<Integer> prices = new ArrayList<>();\n\n    public void add(int priceCents) {\n        prices.add(priceCents);\n    }\n\n    public int totalPrice() {\n        int sum = 0;\n        for (int p : prices) sum += p;\n        return sum;\n    }\n\n    public int itemCount() {\n        return prices.size();\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        ShoppingCart c = new ShoppingCart();\n        if (!(c.totalPrice() == 0)) throw new AssertionError(\"empty cart\");\n        c.add(250); c.add(199);\n        if (!(c.totalPrice() == 449)) throw new AssertionError(\"total\");\n        if (!(c.itemCount() == 2)) throw new AssertionError(\"count\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

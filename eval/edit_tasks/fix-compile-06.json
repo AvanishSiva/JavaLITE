@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-06",
+  "type": "fix_compile_error",
+  "instruction": "increment() doesn't compile: \"cannot assign a value to final variable count\". The counter should go up by one on each call.",
+  "before": "public class TallyCounter {\n    private final int count = 0;\n\n    public void increment() {\n        count++;\n    }\n\n    public int getCount() {\n        return count;\n    }\n}\n",
+  "after": "public class TallyCounter {\n    private int count = 0;\n\n    public void increment() {\n        count++;\n    }\n\n    public int getCount() {\n        return count;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        TallyCounter t = new TallyCounter();\n        if (!(t.getCount() == 0)) throw new AssertionError(\"starts at zero\");\n        t.increment(); t.increment(); t.increment();\n        if (!(t.getCount() == 3)) throw new AssertionError(\"after three increments\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

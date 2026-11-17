@@ -1,0 +1,8 @@
+{
+  "id": "null-check-04",
+  "type": "add_null_check",
+  "instruction": "The constructor should throw NullPointerException if firstName or lastName is null.",
+  "before": "public class Person {\n    private final String firstName;\n    private final String lastName;\n\n    public Person(String firstName, String lastName) {\n        this.firstName = firstName;\n        this.lastName = lastName;\n    }\n\n    public String fullName() {\n        return firstName + \" \" + lastName;\n    }\n}\n",
+  "after": "import java.util.Objects;\n\npublic class Person {\n    private final String firstName;\n    private final String lastName;\n\n    public Person(String firstName, String lastName) {\n        this.firstName = Objects.requireNonNull(firstName, \"firstName\");\n        this.lastName = Objects.requireNonNull(lastName, \"lastName\");\n    }\n\n    public String fullName() {\n        return firstName + \" \" + lastName;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(new Person(\"Ada\", \"Lovelace\").fullName().equals(\"Ada Lovelace\"))) throw new AssertionError(\"normal\");\n        try { new Person(null, \"X\"); throw new AssertionError(\"null firstName accepted\"); }\n        catch (NullPointerException expected) { }\n        try { new Person(\"X\", null); throw new AssertionError(\"null lastName accepted\"); }\n        catch (NullPointerException expected) { }\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

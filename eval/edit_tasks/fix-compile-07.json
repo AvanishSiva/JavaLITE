@@ -1,0 +1,8 @@
+{
+  "id": "fix-compile-07",
+  "type": "fix_compile_error",
+  "instruction": "sumOfSquares() fails with \"non-static method square(int) cannot be referenced from a static context\". Keep sumOfSquares() static.",
+  "before": "public class MathBox {\n    int square(int x) {\n        return x * x;\n    }\n\n    public static int sumOfSquares(int[] xs) {\n        int total = 0;\n        for (int x : xs) {\n            total += square(x);\n        }\n        return total;\n    }\n\n    public static int cube(int x) {\n        return x * x * x;\n    }\n}\n",
+  "after": "public class MathBox {\n    static int square(int x) {\n        return x * x;\n    }\n\n    public static int sumOfSquares(int[] xs) {\n        int total = 0;\n        for (int x : xs) {\n            total += square(x);\n        }\n        return total;\n    }\n\n    public static int cube(int x) {\n        return x * x * x;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(MathBox.sumOfSquares(new int[]{1, 2, 3}) == 14)) throw new AssertionError(\"sumOfSquares\");\n        if (!(MathBox.sumOfSquares(new int[0]) == 0)) throw new AssertionError(\"empty\");\n        if (!(MathBox.cube(-2) == -8)) throw new AssertionError(\"cube\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

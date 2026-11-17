@@ -1,0 +1,8 @@
+{
+  "id": "null-check-02",
+  "type": "add_null_check",
+  "instruction": "countWords should return 0 when text is null instead of throwing.",
+  "before": "public class WordCounter {\n    public static int countWords(String text) {\n        String t = text.trim();\n        if (t.isEmpty()) {\n            return 0;\n        }\n        return t.split(\"\\\\s+\").length;\n    }\n}\n",
+  "after": "public class WordCounter {\n    public static int countWords(String text) {\n        if (text == null) {\n            return 0;\n        }\n        String t = text.trim();\n        if (t.isEmpty()) {\n            return 0;\n        }\n        return t.split(\"\\\\s+\").length;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(WordCounter.countWords(null) == 0)) throw new AssertionError(\"null text\");\n        if (!(WordCounter.countWords(\"  the quick  fox \") == 3)) throw new AssertionError(\"normal\");\n        if (!(WordCounter.countWords(\"   \") == 0)) throw new AssertionError(\"blank\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

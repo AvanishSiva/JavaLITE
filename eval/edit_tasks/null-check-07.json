@@ -1,0 +1,8 @@
+{
+  "id": "null-check-07",
+  "type": "add_null_check",
+  "instruction": "Throw IllegalArgumentException if either date is null.",
+  "before": "import java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\n\npublic class DayCounter {\n    public static long daysBetween(LocalDate from, LocalDate to) {\n        return ChronoUnit.DAYS.between(from, to);\n    }\n}\n",
+  "after": "import java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\n\npublic class DayCounter {\n    public static long daysBetween(LocalDate from, LocalDate to) {\n        if (from == null || to == null) {\n            throw new IllegalArgumentException(\"dates must not be null\");\n        }\n        return ChronoUnit.DAYS.between(from, to);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        java.time.LocalDate d = java.time.LocalDate.of(2026, 1, 1);\n        if (!(DayCounter.daysBetween(d, java.time.LocalDate.of(2026, 3, 1)) == 59)) throw new AssertionError(\"normal\");\n        try { DayCounter.daysBetween(null, d); throw new AssertionError(\"null from accepted\"); }\n        catch (IllegalArgumentException expected) { }\n        try { DayCounter.daysBetween(d, null); throw new AssertionError(\"null to accepted\"); }\n        catch (IllegalArgumentException expected) { }\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

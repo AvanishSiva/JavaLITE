@@ -1,0 +1,8 @@
+{
+  "id": "extract-method-03",
+  "type": "extract_method",
+  "instruction": "Both methods trim and lowercase the email. Extract that into `static String normalize(String email)` and use it in both.",
+  "before": "public class Contact {\n    public static String domainOf(String email) {\n        String e = email.trim().toLowerCase();\n        int at = e.indexOf('@');\n        return e.substring(at + 1);\n    }\n\n    public static String userOf(String email) {\n        String e = email.trim().toLowerCase();\n        int at = e.indexOf('@');\n        return e.substring(0, at);\n    }\n}\n",
+  "after": "public class Contact {\n    static String normalize(String email) {\n        return email.trim().toLowerCase();\n    }\n\n    public static String domainOf(String email) {\n        String e = normalize(email);\n        int at = e.indexOf('@');\n        return e.substring(at + 1);\n    }\n\n    public static String userOf(String email) {\n        String e = normalize(email);\n        int at = e.indexOf('@');\n        return e.substring(0, at);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(Contact.normalize(\"  Ann@Example.COM \").equals(\"ann@example.com\"))) throw new AssertionError(\"normalize\");\n        if (!(Contact.domainOf(\" Bo@Mail.ie\").equals(\"mail.ie\"))) throw new AssertionError(\"domainOf\");\n        if (!(Contact.userOf(\"Bo@Mail.ie \").equals(\"bo\"))) throw new AssertionError(\"userOf\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

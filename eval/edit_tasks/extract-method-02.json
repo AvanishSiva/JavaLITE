@@ -1,0 +1,8 @@
+{
+  "id": "extract-method-02",
+  "type": "extract_method",
+  "instruction": "Extract the digit check into `static boolean containsDigit(String s)` that returns true if s has at least one digit, and use it in isValid().",
+  "before": "public class PasswordValidator {\n    public static boolean isValid(String pw) {\n        if (pw.length() < 8) {\n            return false;\n        }\n        boolean hasDigit = false;\n        for (char c : pw.toCharArray()) {\n            if (Character.isDigit(c)) {\n                hasDigit = true;\n                break;\n            }\n        }\n        return hasDigit;\n    }\n}\n",
+  "after": "public class PasswordValidator {\n    public static boolean isValid(String pw) {\n        if (pw.length() < 8) {\n            return false;\n        }\n        return containsDigit(pw);\n    }\n\n    static boolean containsDigit(String s) {\n        for (char c : s.toCharArray()) {\n            if (Character.isDigit(c)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(PasswordValidator.containsDigit(\"abc1\"))) throw new AssertionError(\"has digit\");\n        if (!(!PasswordValidator.containsDigit(\"abc\"))) throw new AssertionError(\"no digit\");\n        if (!(PasswordValidator.isValid(\"longpass9\"))) throw new AssertionError(\"valid\");\n        if (!(!PasswordValidator.isValid(\"longpass\") && !PasswordValidator.isValid(\"ab1\"))) throw new AssertionError(\"invalid\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

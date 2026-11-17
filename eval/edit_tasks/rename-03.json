@@ -1,0 +1,8 @@
+{
+  "id": "rename-03",
+  "type": "rename",
+  "instruction": "Rename rev to reverse. Don't touch the other methods.",
+  "before": "public class TextTools {\n    public static String rev(String s) {\n        return new StringBuilder(s).reverse().toString();\n    }\n\n    public static boolean isBlank(String s) {\n        return s == null || s.trim().isEmpty();\n    }\n\n    public static int countVowels(String s) {\n        int n = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (\"aeiou\".indexOf(c) >= 0) n++;\n        }\n        return n;\n    }\n}\n",
+  "after": "public class TextTools {\n    public static String reverse(String s) {\n        return new StringBuilder(s).reverse().toString();\n    }\n\n    public static boolean isBlank(String s) {\n        return s == null || s.trim().isEmpty();\n    }\n\n    public static int countVowels(String s) {\n        int n = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (\"aeiou\".indexOf(c) >= 0) n++;\n        }\n        return n;\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(TextTools.reverse(\"abc\").equals(\"cba\"))) throw new AssertionError(\"reverse\");\n        if (!(TextTools.isBlank(\"  \") && !TextTools.isBlank(\"x\"))) throw new AssertionError(\"isBlank\");\n        if (!(TextTools.countVowels(\"Education\") == 5)) throw new AssertionError(\"countVowels\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

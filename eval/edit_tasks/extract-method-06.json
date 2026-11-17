@@ -1,0 +1,8 @@
+{
+  "id": "extract-method-06",
+  "type": "extract_method",
+  "instruction": "Move the max-finding loop into `static int maxScore(Map<String, Integer> scores)` and use it in summary().",
+  "before": "import java.util.Map;\n\npublic class Leaderboard {\n    public static String summary(Map<String, Integer> scores) {\n        int best = Integer.MIN_VALUE;\n        for (int s : scores.values()) {\n            if (s > best) best = s;\n        }\n        return \"Top score: \" + best + \" (\" + scores.size() + \" players)\";\n    }\n}\n",
+  "after": "import java.util.Map;\n\npublic class Leaderboard {\n    static int maxScore(Map<String, Integer> scores) {\n        int best = Integer.MIN_VALUE;\n        for (int s : scores.values()) {\n            if (s > best) best = s;\n        }\n        return best;\n    }\n\n    public static String summary(Map<String, Integer> scores) {\n        return \"Top score: \" + maxScore(scores) + \" (\" + scores.size() + \" players)\";\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        java.util.Map<String, Integer> m = java.util.Map.of(\"ann\", 3, \"bo\", 9, \"cy\", -2);\n        if (!(Leaderboard.maxScore(m) == 9)) throw new AssertionError(\"maxScore\");\n        if (!(Leaderboard.maxScore(java.util.Map.of(\"x\", -5)) == -5)) throw new AssertionError(\"negative max\");\n        if (!(Leaderboard.summary(m).equals(\"Top score: 9 (3 players)\"))) throw new AssertionError(\"summary unchanged\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}

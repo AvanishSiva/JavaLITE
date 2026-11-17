@@ -1,0 +1,8 @@
+{
+  "id": "null-check-05",
+  "type": "add_null_check",
+  "instruction": "If settings is null, get() should return the fallback instead of throwing.",
+  "before": "import java.util.Map;\n\npublic class Config {\n    public static String get(Map<String, String> settings, String key, String fallback) {\n        String v = settings.get(key);\n        return v == null ? fallback : v;\n    }\n\n    public static int getInt(Map<String, String> settings, String key, int fallback) {\n        String v = get(settings, key, null);\n        return v == null ? fallback : Integer.parseInt(v);\n    }\n}\n",
+  "after": "import java.util.Map;\n\npublic class Config {\n    public static String get(Map<String, String> settings, String key, String fallback) {\n        if (settings == null) {\n            return fallback;\n        }\n        String v = settings.get(key);\n        return v == null ? fallback : v;\n    }\n\n    public static int getInt(Map<String, String> settings, String key, int fallback) {\n        String v = get(settings, key, null);\n        return v == null ? fallback : Integer.parseInt(v);\n    }\n}\n",
+  "test": "public class Test {\n    public static void main(String[] a) {\n        if (!(\"dflt\".equals(Config.get(null, \"port\", \"dflt\")))) throw new AssertionError(\"null map\");\n        if (!(Config.getInt(null, \"port\", 8080) == 8080)) throw new AssertionError(\"getInt with null map\");\n        java.util.Map<String, String> m = java.util.Map.of(\"port\", \"9000\");\n        if (!(Config.get(m, \"port\", \"x\").equals(\"9000\") && Config.get(m, \"host\", \"x\").equals(\"x\"))) throw new AssertionError(\"normal\");\n        System.out.println(\"PASS\");\n    }\n}\n"
+}
