@@ -1,0 +1,967 @@
+{
+  "summary": {
+    "model": "Qwen/Qwen2.5-Coder-0.5B",
+    "total_problems": 158,
+    "contamination_checked": false,
+    "n_contaminated": 0,
+    "contaminated": [],
+    "scored": 158,
+    "passed": 36,
+    "pass@1_pct": 22.78,
+    "status_counts": {
+      "runtime_fail": 99,
+      "pass": 36,
+      "compile_error": 23
+    }
+  },
+  "results": [
+    {
+      "name": "HumanEval_0_has_close_elements",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:19)\n",
+      "completion": "        // TODO: Implement this method\n        return false;"
+    },
+    {
+      "name": "HumanEval_1_separate_paren_groups",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:43)\n",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        int open = 0;\n        int close = 0;\n        int i = 0;\n        while (i < paren_string.length()) {\n            if (paren_string.charAt(i) == '(') {\n                open++;\n            } else if (paren_string.charAt(i) == ')') {\n                close++;\n            }\n            i++;\n        }\n        if (open == close) {\n            result.add(paren_string);\n        } else {\n            int j = 0;\n            while (j < paren_string.length()) {\n                if (paren_string.charAt(j) == '(') {\n                    result.add(paren_string.substring(0, j));\n                    result.add(paren_string.substring(j + 1, paren_string.length()));\n                    return result;\n                }\n                j++;\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_2_truncate_number",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return number - (int) number;"
+    },
+    {
+      "name": "HumanEval_3_below_zero",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long balance = 0;\n        for (long operation : operations) {\n            balance += operation;\n            if (balance < 0) {\n                return true;\n            }\n        }\n        return false;"
+    },
+    {
+      "name": "HumanEval_4_mean_absolute_deviation",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:24)\n",
+      "completion": "        // TODO: Implement this method\n        float sum = 0;\n        for (int i = 0; i < numbers.size(); i++) {\n            sum += Math.abs(numbers.get(i) - numbers.get(i).floatValue());\n        }\n        return sum / numbers.size();"
+    },
+    {
+      "name": "HumanEval_5_intersperse",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (int i = 0; i < numbers.size(); i++) {\n            result.add(numbers.get(i));\n            if (i < numbers.size() - 1) {\n                result.add(delimeter);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_6_parse_nested_parens",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        Stack<Long> stack = new Stack<Long>();\n        for (int i = 0; i < paren_string.length(); i++) {\n            char c = paren_string.charAt(i);\n            if (c == '(') {\n                stack.push((long)1);\n            } else if (c == ')') {\n                stack.pop();\n            }\n        }\n        while (!stack.isEmpty()) {\n            result.add(stack.pop());\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_7_filter_by_substring",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<String> filtered = new ArrayList<String>();\n        for (String s : strings) {\n            if (s.contains(substring)) {\n                filtered.add(s);\n            }\n        }\n        return filtered;"
+    },
+    {
+      "name": "HumanEval_8_sum_product",
+      "status": "pass",
+      "detail": "",
+      "completion": "        // Write your code here\n        long sum = 0;\n        long product = 1;\n        for (long number : numbers) {\n            sum += number;\n            product *= number;\n        }\n        return Pair.with(sum, product);"
+    },
+    {
+      "name": "HumanEval_9_rolling_max",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0\n\tat java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:100)\n\tat java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:106)\n\tat java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:302)\n\tat java.base/java.util.Objects.checkIndex(Objects.java:385)\n\tat java.base/java.util.ArrayList.get(ArrayList.java:427)\n\tat Problem.rollingMax(Prob",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        long max = numbers.get(0);\n        for (int i = 0; i < numbers.size(); i++) {\n            if (numbers.get(i) > max) {\n                max = numbers.get(i);\n            }\n            result.add(max);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_10_make_palindrome",
+      "status": "compile_error",
+      "detail": "Problem.java:21: error: cannot find symbol\n        String longestPostfix = findLongestPostfix(string);\n                                ^\n  symbol:   method findLongestPostfix(String)\n  location: class Problem\nProblem.java:23: error: cannot find symbol\n        return reversePrefix(string, longestPostfix);    }\n               ^\n  symbol:   method reversePrefix(String,String)\n  location: class Problem\n2 errors\n",
+      "completion": "        // Find the longest postfix of supplied string that is a palindrome.\n        String longestPostfix = findLongestPostfix(string);\n        // Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n        return reversePrefix(string, longestPostfix);"
+    },
+    {
+      "name": "HumanEval_11_string_xor",
+      "status": "pass",
+      "detail": "",
+      "completion": "        // Write your code here\n        String result = \"\";\n        for (int i = 0; i < a.length(); i++) {\n            if (a.charAt(i) == '1' && b.charAt(i) == '1') {\n                result += '0';\n            } else if (a.charAt(i) == '0' && b.charAt(i) == '0') {\n                result += '0';\n            } else if (a.charAt(i) == '1' && b.charAt(i) == '0') {\n                result += '1';\n            } else if (a.charAt(i) == '0' && b.charAt(i) == '1') {\n                result += '1';\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_12_longest",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (strings.isEmpty()) {\n            return Optional.empty();\n        }\n        String longest = strings.get(0);\n        for (String s : strings) {\n            if (s.length() > longest.length()) {\n                longest = s;\n            }\n        }\n        return Optional.of(longest);"
+    },
+    {
+      "name": "HumanEval_13_greatest_common_divisor",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (a == 0) {\n            return b;\n        }\n        return greatestCommonDivisor(b % a, a);"
+    },
+    {
+      "name": "HumanEval_14_all_prefixes",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<String> prefixes = new ArrayList<String>();\n        for (int i = 0; i < string.length(); i++) {\n            prefixes.add(string.substring(0, i + 1));\n        }\n        return prefixes;"
+    },
+    {
+      "name": "HumanEval_15_string_sequence",
+      "status": "compile_error",
+      "detail": "Problem.java:15: error: incompatible types: possible lossy conversion from long to int\n        return String.join(\" \", IntStream.range(0, n).mapToObj(i -> String.valueOf(i)).collect(Collectors.toList()));    }\n                                                   ^\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+      "completion": "        return String.join(\" \", IntStream.range(0, n).mapToObj(i -> String.valueOf(i)).collect(Collectors.toList()));"
+    },
+    {
+      "name": "HumanEval_16_count_distinct_characters",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:19)\n",
+      "completion": "        // TODO: Implement this method\n        return 0;"
+    },
+    {
+      "name": "HumanEval_17_parse_music",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.IllegalArgumentException: Invalid character:  \n\tat Problem.parseMusic(Problem.java:30)\n\tat Problem.main(Problem.java:37)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        int i = 0;\n        while (i < music_string.length()) {\n            char c = music_string.charAt(i);\n            if (c == 'o') {\n                result.add(4l);\n            } else if (c == '|') {\n                result.add(2l);\n            } else if (c == '.') {\n                result.add(1l);\n            } else {\n                throw new IllegalArgumentException(\"Invalid character: \" + c);\n            }\n            i++;\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_18_how_many_times",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long count = 0;\n        int index = 0;\n        while (index < string.length() - substring.length() + 1) {\n            if (string.substring(index, index + substring.length()).equals(substring)) {\n                count++;\n            }\n            index++;\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_19_sort_numbers",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NullPointerException: Cannot invoke \"String.equals(Object)\" because the return value of \"Problem.sortNumbers(String)\" is null\n\tat Problem.main(Problem.java:18)\n",
+      "completion": "        // TODO: Implement this method\n        return null;"
+    },
+    {
+      "name": "HumanEval_20_find_closest_elements",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NullPointerException: Cannot invoke \"org.javatuples.Pair.equals(Object)\" because the return value of \"Problem.findClosestElements(java.util.ArrayList)\" is null\n\tat Problem.main(Problem.java:19)\n",
+      "completion": "        // TODO: Implement this method\n        return null;"
+    },
+    {
+      "name": "HumanEval_21_rescale_to_unit",
+      "status": "compile_error",
+      "detail": "Problem.java:49: error: illegal start of expression\n    public static void main(String[] args) {\n    ^\n1 error\n",
+      "completion": "        // TODO: Implement this method\n        // You may assume that the input array list is not null\n        // You may assume that the input array list is not empty\n        // You may assume that the input array list contains at least two elements\n        // You may assume that the input array list contains only numbers\n        // You may assume that the input array list contains only positive numbers\n        // You may assume that the input array list contains only negative numbers\n        // You may assume that the input array list contains only zero numbers\n        // You may assume that the input array list contains only one number\n        // You may assume that the input array list contains only two numbers\n        // You may assume that the input array list contains only three numbers\n        // You may assume that the input array list contains only four numbers\n        // You may assume that the input array list contains only five numbers\n        // You may assume that the input array list contains only six numbers\n        // You may assume that the input array list contains only seven numbers\n        // You may assume that the input array list contains only eight numbers\n        // You may assume that the input array list contains only nine numbers\n        // You may assume that the input array list contains only ten numbers\n        // You may assume that the input array list contains only eleven numbers\n        // You may assume that the input array list contains only twelve numbers\n        // You may assume that the input array list contains only thirteen numbers\n        // You may assume that the input array list contains only fourteen numbers\n        // You may assume that the input array list contains only fifteen numbers\n        // You may assume that the input array list contains only sixteen numbers\n        // You may assume that the input array list contains only seventeen numbers\n        // You may assume that the input array list contains only eighteen numbers\n        // You may assume that the input array list contains only nineteen numbers\n        // You may assume that the input array list contains only twenty numbers\n        // You may assume that the input array list contains only twenty-one numbers\n        // You may assume that the input array list contains only twenty-two numbers\n        // You may assume that the input array list contains only twenty-three numbers\n        // You may assume that the input array list contains only twenty-four numbers\n        // You may assume that the input array list contains only twenty-five numbers\n        // You may assume that the input array list contains only twenty-six numbers\n        // You may assume"
+    },
+    {
+      "name": "HumanEval_22_filter_integers",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Object value : values) {\n            if (value instanceof Long) {\n                result.add((Long) value);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_23_strlen",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return string.length();"
+    },
+    {
+      "name": "HumanEval_24_largest_divisor",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:21)\n",
+      "completion": "        long divisor = 1;\n        while (n % divisor != 0) {\n            divisor++;\n        }\n        return divisor;"
+    },
+    {
+      "name": "HumanEval_25_factorize",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> factors = new ArrayList<Long>();\n        for (long i = 2; i <= n; i++) {\n            while (n % i == 0) {\n                factors.add(i);\n                n /= i;\n            }\n        }\n        return factors;"
+    },
+    {
+      "name": "HumanEval_26_remove_duplicates",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:24)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long number : numbers) {\n            if (!result.contains(number)) {\n                result.add(number);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_27_flip_case",
+      "status": "pass",
+      "detail": "",
+      "completion": "        char[] chars = string.toCharArray();\n        for (int i = 0; i < chars.length; i++) {\n            if (Character.isLowerCase(chars[i])) {\n                chars[i] = Character.toUpperCase(chars[i]);\n            } else if (Character.isUpperCase(chars[i])) {\n                chars[i] = Character.toLowerCase(chars[i]);\n            }\n        }\n        return new String(chars);"
+    },
+    {
+      "name": "HumanEval_28_concatenate",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return strings.stream().reduce(\"\", (a, b) -> a + b);"
+    },
+    {
+      "name": "HumanEval_29_filter_by_prefix",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        for (String s : strings) {\n            if (s.startsWith(prefix)) {\n                result.add(s);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_30_get_positive",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long i : l) {\n            if (i > 0) {\n                result.add(i);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_31_is_prime",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (n == 1) {\n            return false;\n        }\n        if (n == 2) {\n            return true;\n        }\n        if (n % 2 == 0) {\n            return false;\n        }\n        for (long i = 3; i <= Math.sqrt(n); i += 2) {\n            if (n % i == 0) {\n                return false;\n            }\n        }\n        return true;"
+    },
+    {
+      "name": "HumanEval_33_sort_third",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:44)\n",
+      "completion": "        ArrayList<Long> l1 = new ArrayList<Long>();\n        ArrayList<Long> l2 = new ArrayList<Long>();\n        ArrayList<Long> l3 = new ArrayList<Long>();\n        for (int i = 0; i < l.size(); i++) {\n            if (i % 3 == 0) {\n                l1.add(l.get(i));\n            } else if (i % 3 == 1) {\n                l2.add(l.get(i));\n            } else {\n                l3.add(l.get(i));\n            }\n        }\n        Collections.sort(l1);\n        Collections.sort(l2);\n        Collections.sort(l3);\n        ArrayList<Long> l4 = new ArrayList<Long>();\n        for (int i = 0; i < l1.size(); i++) {\n            l4.add(l1.get(i));\n        }\n        for (int i = 0; i < l2.size(); i++) {\n            l4.add(l2.get(i));\n        }\n        for (int i = 0; i < l3.size(); i++) {\n            l4.add(l3.get(i));\n        }\n        return l4;"
+    },
+    {
+      "name": "HumanEval_34_unique",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:21)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long i : l) {\n            if (!result.contains(i)) {\n                result.add(i);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_35_max_element",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long max = l.get(0);\n        for (int i = 1; i < l.size(); i++) {\n            if (l.get(i) > max) {\n                max = l.get(i);\n            }\n        }\n        return max;"
+    },
+    {
+      "name": "HumanEval_36_fizz_buzz",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:31)\n",
+      "completion": "        long count = 0;\n        for (long i = 1; i < n; i++) {\n            if (i % 11 == 0 && i % 13 == 0) {\n                count++;\n            }\n            if (i % 11 == 0) {\n                count++;\n            }\n            if (i % 13 == 0) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_37_sort_even",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1\n\tat java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:100)\n\tat java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:106)\n\tat java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:302)\n\tat java.base/java.util.Objects.checkIndex(Objects.java:385)\n\tat java.base/java.util.ArrayList.get(ArrayList.java:427)\n\tat Problem.sortEven(Proble",
+      "completion": "        ArrayList<Long> l1 = new ArrayList<Long>();\n        for (int i = 0; i < l.size(); i++) {\n            if (i % 2 == 0) {\n                l1.add(l.get(i));\n            }\n        }\n        Collections.sort(l1);\n        ArrayList<Long> l2 = new ArrayList<Long>();\n        for (int i = 0; i < l.size(); i++) {\n            if (i % 2 != 0) {\n                l2.add(l.get(i));\n            }\n        }\n        Collections.sort(l2);\n        ArrayList<Long> l3 = new ArrayList<Long>();\n        for (int i = 0; i < l.size(); i++) {\n            if (i % 2 == 0) {\n                l3.add(l1.get(i));\n            } else {\n                l3.add(l2.get(i));\n            }\n        }\n        return l3;"
+    },
+    {
+      "name": "HumanEval_39_prime_fib",
+      "status": "compile_error",
+      "detail": "Problem.java:88: error: not a statement\n        long    }\n        ^\nProblem.java:88: error: ';' expected\n        long    }\n            ^\n2 errors\n",
+      "completion": "        long a = 0;\n        long b = 1;\n        long c = 0;\n        long d = 0;\n        long e = 0;\n        long f = 0;\n        long g = 0;\n        long h = 0;\n        long i = 0;\n        long j = 0;\n        long k = 0;\n        long l = 0;\n        long m = 0;\n        long n = 0;\n        long o = 0;\n        long p = 0;\n        long q = 0;\n        long r = 0;\n        long s = 0;\n        long t = 0;\n        long u = 0;\n        long v = 0;\n        long w = 0;\n        long x = 0;\n        long y = 0;\n        long z = 0;\n        long a1 = 0;\n        long b1 = 0;\n        long c1 = 0;\n        long d1 = 0;\n        long e1 = 0;\n        long f1 = 0;\n        long g1 = 0;\n        long h1 = 0;\n        long i1 = 0;\n        long j1 = 0;\n        long k1 = 0;\n        long l1 = 0;\n        long m1 = 0;\n        long n1 = 0;\n        long o1 = 0;\n        long p1 = 0;\n        long q1 = 0;\n        long r1 = 0;\n        long s1 = 0;\n        long t1 = 0;\n        long u1 = 0;\n        long v1 = 0;\n        long w1 = 0;\n        long x1 = 0;\n        long y1 = 0;\n        long z1 = 0;\n        long a2 = 0;\n        long b2 = 0;\n        long c2 = 0;\n        long d2 = 0;\n        long e2 = 0;\n        long f2 = 0;\n        long g2 = 0;\n        long h2 = 0;\n        long i2 = 0;\n        long j2 = 0;\n        long k2 = 0;\n        long l2 = 0;\n        long m2 = 0;\n        long n2 = 0;\n        long o2 = 0;\n        long"
+    },
+    {
+      "name": "HumanEval_40_triples_sum_to_zero",
+      "status": "compile_error",
+      "detail": "Problem.java:125: error: illegal start of expression\n    public static void main(String[] args) {\n    ^\n1 error\n",
+      "completion": "        // TODO: Implement this method\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false"
+    },
+    {
+      "name": "HumanEval_41_car_race_collision",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:36)\n",
+      "completion": "        long collisions = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                if (i != j) {\n                    if (i < j) {\n                        if (i % 2 == 0 && j % 2 == 0) {\n                            collisions++;\n                        }\n                    } else {\n                        if (i % 2 == 0 && j % 2 == 1) {\n                            collisions++;\n                        }\n                    }\n                }\n            }\n        }\n        return collisions;"
+    },
+    {
+      "name": "HumanEval_42_incr_list",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long i : l) {\n            result.add(i + 1);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_43_pairs_sum_to_zero",
+      "status": "compile_error",
+      "detail": "Problem.java:125: error: illegal start of expression\n    public static void main(String[] args) {\n    ^\n1 error\n",
+      "completion": "        // TODO: Implement this method\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false;\n        // return true;\n        // return false"
+    },
+    {
+      "name": "HumanEval_44_change_base",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:22)\n",
+      "completion": "        // TODO: Implement this method.\n        return \"\";"
+    },
+    {
+      "name": "HumanEval_45_triangle_area",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:15)\n",
+      "completion": "        return (a * h) / 2;"
+    },
+    {
+      "name": "HumanEval_46_fib4",
+      "status": "compile_error",
+      "detail": "Problem.java:63: error: '(' expected\n        if    }\n          ^\nProblem.java:63: error: illegal start of expression\n        if    }\n              ^\n2 errors\n",
+      "completion": "        if (n == 0) return 0;\n        if (n == 1) return 0;\n        if (n == 2) return 2;\n        if (n == 3) return 0;\n        if (n == 4) return 2;\n        if (n == 5) return 0;\n        if (n == 6) return 2;\n        if (n == 7) return 0;\n        if (n == 8) return 2;\n        if (n == 9) return 0;\n        if (n == 10) return 2;\n        if (n == 11) return 0;\n        if (n == 12) return 2;\n        if (n == 13) return 0;\n        if (n == 14) return 2;\n        if (n == 15) return 0;\n        if (n == 16) return 2;\n        if (n == 17) return 0;\n        if (n == 18) return 2;\n        if (n == 19) return 0;\n        if (n == 20) return 2;\n        if (n == 21) return 0;\n        if (n == 22) return 2;\n        if (n == 23) return 0;\n        if (n == 24) return 2;\n        if (n == 25) return 0;\n        if (n == 26) return 2;\n        if (n == 27) return 0;\n        if (n == 28) return 2;\n        if (n == 29) return 0;\n        if (n == 30) return 2;\n        if (n == 31) return 0;\n        if (n == 32) return 2;\n        if (n == 33) return 0;\n        if (n == 34) return 2;\n        if (n == 35) return 0;\n        if (n == 36) return 2;\n        if (n == 37) return 0;\n        if (n == 38) return 2;\n        if (n == 39) return 0;\n        if"
+    },
+    {
+      "name": "HumanEval_47_median",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        // Write your code here\n        Collections.sort(l);\n        int size = l.size();\n        if(size%2==0){\n            return (float)((l.get(size/2-1)+l.get(size/2))/2);\n        }\n        else{\n            return (float)l.get(size/2);\n        }"
+    },
+    {
+      "name": "HumanEval_48_is_palindrome",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (text.length() == 0 || text.length() == 1) {\n            return true;\n        }\n        if (text.charAt(0) == text.charAt(text.length() - 1)) {\n            return isPalindrome(text.substring(1, text.length() - 1));\n        }\n        return false;"
+    },
+    {
+      "name": "HumanEval_49_modp",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.ArithmeticException: / by zero\n\tat Problem.modp(Problem.java:24)\n\tat Problem.main(Problem.java:31)\n",
+      "completion": "        long result = 1;\n        while (n > 0) {\n            if (n % 2 == 1) {\n                result = (result * p) % p;\n            }\n            n = n / 2;\n            p = (p * p) % p;\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_51_remove_vowels",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:25)\n",
+      "completion": "        // TODO: Implement this function\n        return \"\";"
+    },
+    {
+      "name": "HumanEval_52_below_threshold",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return l.stream().allMatch(x -> x < t);"
+    },
+    {
+      "name": "HumanEval_53_add",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return x + y;"
+    },
+    {
+      "name": "HumanEval_54_same_chars",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:32)\n",
+      "completion": "        if (s0.length() != s1.length()) {\n            return false;\n        }\n        char[] s0Chars = s0.toCharArray();\n        char[] s1Chars = s1.toCharArray();\n        Arrays.sort(s0Chars);\n        Arrays.sort(s1Chars);\n        return Arrays.equals(s0Chars, s1Chars);"
+    },
+    {
+      "name": "HumanEval_55_fib",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (n == 0) return 0;\n        if (n == 1) return 1;\n        return fib(n - 1) + fib(n - 2);"
+    },
+    {
+      "name": "HumanEval_56_correct_bracketing",
+      "status": "pass",
+      "detail": "",
+      "completion": "        Stack<Character> stack = new Stack<>();\n        for (int i = 0; i < brackets.length(); i++) {\n            char c = brackets.charAt(i);\n            if (c == '<') {\n                stack.push(c);\n            } else if (c == '>') {\n                if (stack.isEmpty()) {\n                    return false;\n                }\n                stack.pop();\n            }\n        }\n        return stack.isEmpty();"
+    },
+    {
+      "name": "HumanEval_57_monotonic",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:20)\n",
+      "completion": "        // TODO: Implement me\n        return false;"
+    },
+    {
+      "name": "HumanEval_58_common",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:23)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long l : l1) {\n            if (l2.contains(l)) {\n                result.add(l);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_59_largest_prime_factor",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long max = 1;\n        for (long i = 2; i <= n; i++) {\n            if (n % i == 0) {\n                max = i;\n                while (n % i == 0) {\n                    n /= i;\n                }\n            }\n        }\n        return max;"
+    },
+    {
+      "name": "HumanEval_60_sum_to_n",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long sum = 0;\n        for (long i = 1; i <= n; i++) {\n            sum += i;\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_61_correct_bracketing",
+      "status": "pass",
+      "detail": "",
+      "completion": "        Stack<Character> stack = new Stack<>();\n        for (int i = 0; i < brackets.length(); i++) {\n            char c = brackets.charAt(i);\n            if (c == '(') {\n                stack.push(c);\n            } else if (c == ')') {\n                if (stack.isEmpty()) {\n                    return false;\n                }\n                stack.pop();\n            }\n        }\n        return stack.isEmpty();"
+    },
+    {
+      "name": "HumanEval_62_derivative",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (int i = 1; i < xs.size(); i++) {\n            result.add(xs.get(i) * i);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_63_fibfib",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (n == 0) return 0;\n        if (n == 1) return 0;\n        if (n == 2) return 1;\n        long a = 0, b = 0, c = 1;\n        for (int i = 3; i <= n; i++) {\n            long temp = a + b + c;\n            a = b;\n            b = c;\n            c = temp;\n        }\n        return c;"
+    },
+    {
+      "name": "HumanEval_64_vowels_count",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        long count = 0;\n        for (int i = 0; i < s.length(); i++) {\n            if (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u') {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_65_circular_shift",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NullPointerException: Cannot invoke \"String.equals(Object)\" because the return value of \"Problem.circularShift(long, long)\" is null\n\tat Problem.main(Problem.java:20)\n",
+      "completion": "        // TODO\n        return null;"
+    },
+    {
+      "name": "HumanEval_66_digitSum",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:35)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < s.length(); i++) {\n            if (Character.isUpperCase(s.charAt(i))) {\n                sum += (long) s.charAt(i) - 64;\n            }\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_67_fruit_distribution",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NumberFormatException: For input string: \"apples\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)\n\tat java.base/java.lang.Long.parseLong(Long.java:709)\n\tat java.base/java.lang.Long.parseLong(Long.java:832)\n\tat Problem.fruitDistribution(Problem.java:26)\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        String[] arr = s.split(\" \");\n        long apples = Long.parseLong(arr[0]);\n        long oranges = Long.parseLong(arr[1]);\n        long mango = n - apples - oranges;\n        return mango;"
+    },
+    {
+      "name": "HumanEval_68_pluck",
+      "status": "compile_error",
+      "detail": "Problem.java:48: error: incompatible types: int cannot be converted to Long\n        result.add(smallestIndex);\n                   ^\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<>();\n        if (arr.size() == 0) {\n            return result;\n        }\n        long smallest = arr.get(0);\n        int smallestIndex = 0;\n        for (int i = 0; i < arr.size(); i++) {\n            if (arr.get(i) % 2 == 0 && arr.get(i) < smallest) {\n                smallest = arr.get(i);\n                smallestIndex = i;\n            }\n        }\n        result.add(smallest);\n        result.add(smallestIndex);\n        return result;"
+    },
+    {
+      "name": "HumanEval_69_search",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:48)\n",
+      "completion": "        long max = 0;\n        long min = 0;\n        long maxFreq = 0;\n        long minFreq = 0;\n        for (long i : lst) {\n            if (i > 0) {\n                maxFreq = maxFreq + 1;\n                if (maxFreq > i) {\n                    max = i;\n                }\n            } else {\n                minFreq = minFreq + 1;\n                if (minFreq > i) {\n                    min = i;\n                }\n            }\n        }\n        if (maxFreq >= max) {\n            return max;\n        } else if (minFreq >= min) {\n            return min;\n        } else {\n            return -1;\n        }"
+    },
+    {
+      "name": "HumanEval_70_strange_sort_list",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:46)\n",
+      "completion": "        // TODO: Implement me!\n        ArrayList<Long> result = new ArrayList<Long>();\n        if(lst.size() == 0) return result;\n        long min = lst.get(0);\n        long max = lst.get(0);\n        for(int i = 0; i < lst.size(); i++){\n            if(lst.get(i) < min){\n                min = lst.get(i);\n            }\n            if(lst.get(i) > max){\n                max = lst.get(i);\n            }\n        }\n        for(int i = 0; i < lst.size(); i++){\n            if(lst.get(i) == min){\n                result.add(max);\n                max--;\n            }else if(lst.get(i) == max){\n                result.add(min);\n                min++;\n            }else{\n                result.add(lst.get(i));\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_71_triangle_area",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:25)\n",
+      "completion": "        if (a + b <= c || a + c <= b || b + c <= a) {\n            return -1f;\n        }\n        return (float) (Math.sqrt((a * a) + (b * b) - (c * c)) * 0.5f);"
+    },
+    {
+      "name": "HumanEval_72_will_it_fly",
+      "status": "compile_error",
+      "detail": "Problem.java:41: error: ')' expected\n        if (q    }\n             ^\nProblem.java:41: error: illegal start of statement\n        if (q    }\n                 ^\n2 errors\n",
+      "completion": "        if (q.size() == 0) return false;\n        if (q.size() == 1) return q.get(0).longValue() == 1;\n        if (q.get(0).longValue() == 1) return q.get(1).longValue() == 1;\n        if (q.get(q.size() - 1).longValue() == 1) return q.get(q.size() - 2).longValue() == 1;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 1) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 2) return true;\n        if (q.get(0).longValue() == 2 && q.get(q.size() - 1).longValue() == 1) return true;\n        if (q.get(0).longValue() == 2 && q.get(q.size() - 1).longValue() == 2) return true;\n        if (q.get(0).longValue() == 3 && q.get(q.size() - 1).longValue() == 3) return true;\n        if (q.get(0).longValue() == 3 && q.get(q.size() - 1).longValue() == 2) return true;\n        if (q.get(0).longValue() == 3 && q.get(q.size() - 1).longValue() == 1) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 3) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 2) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 1) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 3) return true;\n        if (q.get(0).longValue() == 1 && q.get(q.size() - 1).longValue() == 2) return true;\n        if (q"
+    },
+    {
+      "name": "HumanEval_73_smallest_change",
+      "status": "pass",
+      "detail": "",
+      "completion": "        long count = 0;\n        for (int i = 0; i < arr.size() / 2; i++) {\n            if (arr.get(i) != arr.get(arr.size() - 1 - i)) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_74_total_match",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:33)\n",
+      "completion": "        if (lst1.size() == lst2.size()) {\n            return lst1;\n        }\n        if (lst1.size() < lst2.size()) {\n            return lst1;\n        }\n        return lst2;"
+    },
+    {
+      "name": "HumanEval_75_is_multiply_prime",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:21)\n",
+      "completion": "        // TODO: Implement this function\n        return false;"
+    },
+    {
+      "name": "HumanEval_76_is_simple_power",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (x == 1) return true;\n        if (x == n) return true;\n        if (x % n != 0) return false;\n        return isSimplePower(x / n, n);"
+    },
+    {
+      "name": "HumanEval_77_iscube",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:29)\n",
+      "completion": "        return (long)Math.sqrt(a) == (long)Math.sqrt(a);"
+    },
+    {
+      "name": "HumanEval_78_hex_key",
+      "status": "compile_error",
+      "detail": "Problem.java:33: error: cannot find symbol\n            if (isPrime(Integer.parseInt(num.substring(i, i + 1)))) {\n                ^\n  symbol:   method isPrime(int)\n  location: class Problem\n1 error\n",
+      "completion": "        long count = 0;\n        for (int i = 0; i < num.length(); i++) {\n            if (isPrime(Integer.parseInt(num.substring(i, i + 1)))) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_79_decimal_to_binary",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        String binary = \"\";\n        while (decimal > 0) {\n            binary = (decimal % 2) + binary;\n            decimal /= 2;\n        }\n        return \"db\" + binary + \"db\";"
+    },
+    {
+      "name": "HumanEval_80_is_happy",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:34)\n",
+      "completion": "        int count = 0;\n        for (int i = 0; i < s.length() - 2; i++) {\n            if (s.charAt(i) == s.charAt(i + 1) && s.charAt(i + 1) == s.charAt(i + 2)) {\n                count++;\n            }\n        }\n        return count == 0;"
+    },
+    {
+      "name": "HumanEval_81_numerical_letter_grade",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:64)\n",
+      "completion": "        ArrayList<String> letterGrades = new ArrayList<String>();\n        for (int i = 0; i < grades.size(); i++) {\n            if (grades.get(i) >= 4.0f) {\n                letterGrades.add(\"A+\");\n            } else if (grades.get(i) >= 3.7f) {\n                letterGrades.add(\"A\");\n            } else if (grades.get(i) >= 3.3f) {\n                letterGrades.add(\"A-\");\n            } else if (grades.get(i) >= 3.0f) {\n                letterGrades.add(\"B+\");\n            } else if (grades.get(i) >= 2.7f) {\n                letterGrades.add(\"B\");\n            } else if (grades.get(i) >= 2.3f) {\n                letterGrades.add(\"B-\");\n            } else if (grades.get(i) >= 2.0f) {\n                letterGrades.add(\"C+\");\n            } else if (grades.get(i) >= 1.7f) {\n                letterGrades.add(\"C\");\n            } else if (grades.get(i) >= 1.3f) {\n                letterGrades.add(\"C-\");\n            } else if (grades.get(i) >= 1.0f) {\n                letterGrades.add(\"D+\");\n            } else if (grades.get(i) >= 0.7f) {\n                letterGrades.add(\"D\");\n            } else if (grades.get(i) >= 0.0f) {\n                letterGrades.add(\"D-\");\n            } else {\n                letterGrades.add(\"E\");\n            }\n        }\n        return letterGrades;"
+    },
+    {
+      "name": "HumanEval_82_prime_length",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:23)\n",
+      "completion": "        return false;"
+    },
+    {
+      "name": "HumanEval_83_starts_one_ends",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:21)\n",
+      "completion": "        long count = 0;\n        for (long i = 1; i <= n; i++) {\n            if (i % 10 == 1 || i % 10 == 0) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_84_solve",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        String s = \"\";\n        while (N > 0) {\n            s = (N % 2) + s;\n            N /= 2;\n        }\n        return s;"
+    },
+    {
+      "name": "HumanEval_85_add",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:22)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < lst.size(); i++) {\n            if (i % 2 == 0) {\n                sum += lst.get(i);\n            }\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_86_anti_shuffle",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:33)\n",
+      "completion": "        String[] words = s.split(\" \");\n        String[] newWords = new String[words.length];\n        for (int i = 0; i < words.length; i++) {\n            newWords[i] = new String();\n            for (int j = 0; j < words[i].length(); j++) {\n                newWords[i] += (char) words[i].charAt(j);\n            }\n        }\n        return String.join(\" \", newWords);"
+    },
+    {
+      "name": "HumanEval_87_get_row",
+      "status": "compile_error",
+      "detail": "Problem.java:28: error: incompatible types: cannot infer type-variable(s) T\n            Collections.sort(row, (a, b) -> a - b);\n                            ^\n    (argument mismatch; bad return type in lambda expression\n      possible lossy conversion from long to int)\n  where T is a type-variable:\n    T extends Object declared in method <T>sort(List<T>,Comparator<? super T>)\nProblem.java:29: error: incompatible types: cannot infer type-variable(s) T\n            Collections.sort(row, (a, b) -> b ",
+      "completion": "        ArrayList<Pair<Long, Long>> res = new ArrayList<>();\n        for (int i = 0; i < lst.size(); i++) {\n            ArrayList<Long> row = lst.get(i);\n            Collections.sort(row, (a, b) -> a - b);\n            Collections.sort(row, (a, b) -> b - a);\n            for (int j = 0; j < row.size(); j++) {\n                if (row.get(j) == x) {\n                    res.add(Pair.with(i, j));\n                }\n            }\n        }\n        return res;"
+    },
+    {
+      "name": "HumanEval_88_sort_array",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NullPointerException: Cannot invoke \"java.util.ArrayList.equals(Object)\" because the return value of \"Problem.sortArray(java.util.ArrayList)\" is null\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        // TODO: Implement me\n        return null;"
+    },
+    {
+      "name": "HumanEval_89_encrypt",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:39)\n",
+      "completion": "        char[] c = s.toCharArray();\n        for (int i = 0; i < c.length; i++) {\n            if (c[i] >= 'a' && c[i] <= 'z') {\n                c[i] = (char) (c[i] + 2);\n                if (c[i] > 'z') {\n                    c[i] = (char) (c[i] - 26);\n                }\n            } else if (c[i] >= 'A' && c[i] <= 'Z') {\n                c[i] = (char) (c[i] + 2);\n                if (c[i] > 'Z') {\n                    c[i] = (char) (c[i] - 26);\n                }\n            }\n        }\n        return new String(c);"
+    },
+    {
+      "name": "HumanEval_90_next_smallest",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:42)\n",
+      "completion": "        if (lst.size() == 0) {\n            return Optional.empty();\n        }\n        long min = Long.MAX_VALUE;\n        long secondMin = Long.MAX_VALUE;\n        for (long l : lst) {\n            if (l < min) {\n                secondMin = min;\n                min = l;\n            } else if (l < secondMin) {\n                secondMin = l;\n            }\n        }\n        if (secondMin == Long.MAX_VALUE) {\n            return Optional.empty();\n        }\n        return Optional.of(secondMin);"
+    },
+    {
+      "name": "HumanEval_91_is_bored",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        long count = 0;\n        for (String s : S.split(\"[.!?]\")) {\n            if (s.startsWith(\"I\")) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_92_any_int",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        if (x == y + z || x == y - z || x == z - y || x == y * z || x == z / y || x == y / z || x == z % y || x == y % z || x == z % y) {\n            return true;\n        } else {\n            return false;\n        }"
+    },
+    {
+      "name": "HumanEval_93_encode",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:35)\n",
+      "completion": "        String result = \"\";\n        for (int i = 0; i < message.length(); i++) {\n            char c = message.charAt(i);\n            if (Character.isLetter(c)) {\n                if (Character.isUpperCase(c)) {\n                    result += Character.toLowerCase(c);\n                } else {\n                    result += Character.toUpperCase(c);\n                }\n            } else {\n                result += c;\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_94_skjkasdkd",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:38)\n",
+      "completion": "        long max = 0;\n        for (long l : lst) {\n            if (l > max) {\n                max = l;\n            }\n        }\n        long sum = 0;\n        while (max > 0) {\n            sum += max % 10;\n            max /= 10;\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_95_check_dict_case",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        if(dict.size() == 0) return false;\n        String lower = dict.keySet().stream().map(String::toLowerCase).collect(Collectors.joining());\n        String upper = dict.keySet().stream().map(String::toUpperCase).collect(Collectors.joining());\n        return lower.equals(dict.keySet().stream().map(String::toLowerCase).collect(Collectors.joining())) || upper.equals(dict.keySet().stream().map(String::toUpperCase).collect(Collectors.joining()));"
+    },
+    {
+      "name": "HumanEval_96_count_up_to",
+      "status": "compile_error",
+      "detail": "Problem.java:27: error: cannot find symbol\n            if (isPrime(i)) {\n                ^\n  symbol:   method isPrime(long)\n  location: class Problem\n1 error\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (long i = 2; i < n; i++) {\n            if (isPrime(i)) {\n                result.add(i);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_97_multiply",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:24)\n",
+      "completion": "        return a*b;"
+    },
+    {
+      "name": "HumanEval_98_count_upper",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        long count = 0;\n        for (int i = 0; i < s.length(); i++) {\n            if (i % 2 == 0 && s.charAt(i) == 'A' || s.charAt(i) == 'E' || s.charAt(i) == 'I' || s.charAt(i) == 'O' || s.charAt(i) == 'U') {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_99_closest_integer",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:26)\n",
+      "completion": "        // TODO: Implement me!\n        return 0;"
+    },
+    {
+      "name": "HumanEval_100_make_a_pile",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:35)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        if (n % 2 == 0) {\n            result.add((long) n);\n            for (int i = 1; i < n; i += 2) {\n                result.add((long) i + 1);\n            }\n        } else {\n            result.add((long) n);\n            for (int i = 1; i < n; i += 2) {\n                result.add((long) i + 1);\n            }\n            result.add((long) n);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_101_words_string",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:24)\n",
+      "completion": "        ArrayList<String> words = new ArrayList<String>();\n        String[] wordsArray = s.split(\"[, ]\");\n        for (String word : wordsArray) {\n            words.add(word);\n        }\n        return words;"
+    },
+    {
+      "name": "HumanEval_102_choose_num",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        long result = -1l;\n        for (long i = x; i <= y; i++) {\n            if (i % 2 == 0) {\n                result = i;\n                break;\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_104_unique_digits",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:26)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (Long i : x) {\n            if (i % 2 != 0) {\n                result.add(i);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_105_by_length",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:48)\n",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        for (Long i : arr) {\n            if (i < 10) {\n                result.add((String) \"One\");\n            } else if (i < 20) {\n                result.add((String) \"Two\");\n            } else if (i < 30) {\n                result.add((String) \"Three\");\n            } else if (i < 40) {\n                result.add((String) \"Four\");\n            } else if (i < 50) {\n                result.add((String) \"Five\");\n            } else if (i < 60) {\n                result.add((String) \"Six\");\n            } else if (i < 70) {\n                result.add((String) \"Seven\");\n            } else if (i < 80) {\n                result.add((String) \"Eight\");\n            } else if (i < 90) {\n                result.add((String) \"Nine\");\n            } else {\n                result.add((String) \"Zero\");\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_106_f",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (long i = 1; i <= n; i++) {\n            if (i % 2 == 0) {\n                result.add((long)1);\n            } else {\n                result.add((long)(i * (i + 1) / 2));\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_107_even_odd_palindrome",
+      "status": "compile_error",
+      "detail": "Problem.java:27: error: cannot find symbol\n            if (isPalindrome(i)) {\n                ^\n  symbol:   method isPalindrome(long)\n  location: class Problem\n1 error\n",
+      "completion": "        long even = 0, odd = 0;\n        for (long i = 1; i <= n; i++) {\n            if (isPalindrome(i)) {\n                if (i % 2 == 0) {\n                    even++;\n                } else {\n                    odd++;\n                }\n            }\n        }\n        return Pair.with(even, odd);"
+    },
+    {
+      "name": "HumanEval_108_count_nums",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:33)\n",
+      "completion": "        long count = 0;\n        for (long num : arr) {\n            if (num > 0) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_109_move_one_ball",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:45)\n",
+      "completion": "        // Write your code here\n        if(arr.size()==0) return true;\n        int n = arr.size();\n        for(int i=0;i<n;i++){\n            if(arr.get(i)>arr.get(n-1)){\n                arr.add(arr.get(0));\n                arr.remove(0);\n                return true;\n            }\n        }\n        return false;"
+    },
+    {
+      "name": "HumanEval_110_exchange",
+      "status": "compile_error",
+      "detail": "Problem.java:54: error: illegal start of expression\n    public static void main(String[] args) {\n    ^\n1 error\n",
+      "completion": "        // TODO: Implement this function\n        // You may assume that lst1 and lst2 are non-empty.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of the same type.\n        // You may assume that lst1 and lst2 are of the same size.\n        // You may assume that lst1 and lst2 are of"
+    },
+    {
+      "name": "HumanEval_111_histogram",
+      "status": "compile_error",
+      "detail": "Problem.java:30: error: incompatible types: int cannot be converted to Long\n                map.put(s, 1);\n                           ^\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+      "completion": "        HashMap<String,Long> map = new HashMap<>();\n        String[] arr = test.split(\" \");\n        for (String s : arr) {\n            if (map.containsKey(s)) {\n                map.put(s, map.get(s) + 1);\n            } else {\n                map.put(s, 1);\n            }\n        }\n        return map;"
+    },
+    {
+      "name": "HumanEval_112_reverse_delete",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:34)\n",
+      "completion": "        // Write your code here\n        String result = \"\";\n        for (int i = 0; i < s.length(); i++) {\n            if (!c.contains(String.valueOf(s.charAt(i)))) {\n                result += s.charAt(i);\n            }\n        }\n        if (result.equals(\"\")) {\n            return Pair.with(\"\", false);\n        }\n        return Pair.with(result, true);"
+    },
+    {
+      "name": "HumanEval_113_odd_count",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        for (String s : lst) {\n            int count = 0;\n            for (int i = 0; i < s.length(); i++) {\n                if (Character.getNumericValue(s.charAt(i)) % 2 != 0) {\n                    count++;\n                }\n            }\n            result.add(\"the number of odd elements \" + count + \"n the str\" + s + \" of the \" + s + \"input.\");\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_114_minSubArraySum",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        long minSum = Long.MAX_VALUE;\n        long sum = 0;\n        for (long num : nums) {\n            sum += num;\n            if (sum > minSum) {\n                minSum = sum;\n            }\n        }\n        return minSum;"
+    },
+    {
+      "name": "HumanEval_115_max_fill",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:42)\n",
+      "completion": "        long result = 0;\n        for (int i = 0; i < grid.size(); i++) {\n            for (int j = 0; j < grid.get(i).size(); j++) {\n                if (grid.get(i).get(j) == 1) {\n                    result += Math.min(grid.get(i).get(j), capacity);\n                    capacity -= grid.get(i).get(j);\n                }\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_116_sort_array",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:44)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        ArrayList<Long> sorted = new ArrayList<Long>();\n        ArrayList<Long> ones = new ArrayList<Long>();\n        ArrayList<Long> decimal = new ArrayList<Long>();\n        for (Long i : arr) {\n            ones.add(i);\n        }\n        for (Long i : ones) {\n            if (i == 1) {\n                sorted.add(i);\n            } else {\n                decimal.add(i);\n            }\n        }\n        Collections.sort(sorted);\n        Collections.sort(decimal);\n        for (Long i : sorted) {\n            result.add(i);\n        }\n        for (Long i : decimal) {\n            result.add(i);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_117_select_words",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:41)\n",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        String[] words = s.split(\" \");\n        for (String word : words) {\n            int count = 0;\n            for (char c : word.toCharArray()) {\n                if (Character.isLetter(c)) {\n                    count++;\n                }\n            }\n            if (count == n) {\n                result.add(word);\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_118_get_closest_vowel",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:39)\n",
+      "completion": "        String vowels = \"aeiouAEIOU\";\n        String result = \"\";\n        for (int i = word.length() - 1; i >= 0; i--) {\n            if (vowels.indexOf(word.charAt(i)) != -1) {\n                for (int j = i - 1; j >= 0; j--) {\n                    if (vowels.indexOf(word.charAt(j)) != -1) {\n                        result = word.substring(j + 1, i + 1);\n                        break;\n                    }\n                }\n                break;\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_119_match_parens",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:36)\n",
+      "completion": "        int count = 0;\n        for (String s : lst) {\n            if (s.equals(\"(\")) {\n                count++;\n            } else if (s.equals(\")\")) {\n                count--;\n            }\n            if (count < 0) {\n                return \"No\";\n            }\n        }\n        return \"Yes\";"
+    },
+    {
+      "name": "HumanEval_120_maximum",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:58)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        if (k == 0) {\n            return result;\n        }\n        if (k > arr.size()) {\n            return arr;\n        }\n        if (k == arr.size()) {\n            Collections.sort(arr);\n            return arr;\n        }\n        int i = 0;\n        int j = 0;\n        while (i < k && j < arr.size()) {\n            if (arr.get(j) > arr.get(i)) {\n                result.add(arr.get(j));\n                j++;\n            } else {\n                result.add(arr.get(i));\n                i++;\n            }\n        }\n        while (j < arr.size()) {\n            result.add(arr.get(j));\n            j++;\n        }\n        while (i < k) {\n            result.add(arr.get(i));\n            i++;\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_121_solution",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < lst.size(); i++) {\n            if (i % 2 == 0) {\n                sum += lst.get(i);\n            }\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_122_add_elements",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:25)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < k; i++) {\n            sum += arr.get(i);\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_123_get_odd_collatz",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:37)\n",
+      "completion": "        ArrayList<Long> list = new ArrayList<Long>();\n        while (n != 1) {\n            if (n % 2 == 0) {\n                list.add(n);\n                n = n / 2;\n            } else {\n                list.add(n);\n                n = 3 * n + 1;\n            }\n        }\n        list.add(n);\n        Collections.sort(list);\n        return list;"
+    },
+    {
+      "name": "HumanEval_124_valid_date",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (date.isEmpty()) return false;\n        String[] dateParts = date.split(\"-\");\n        if (dateParts.length != 3) return false;\n        int month = Integer.parseInt(dateParts[0]);\n        int day = Integer.parseInt(dateParts[1]);\n        int year = Integer.parseInt(dateParts[2]);\n        if (month < 1 || month > 12) return false;\n        if (day < 1 || day > 31) return false;\n        if (month == 2) {\n            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) return day <= 29;\n            else return day <= 28;\n        }\n        if (month == 4 || month == 6 || month == 9 || month == 11) return day <= 30;\n        return true;"
+    },
+    {
+      "name": "HumanEval_126_is_sorted",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:35)\n",
+      "completion": "        // TODO: Implement me\n        return true;"
+    },
+    {
+      "name": "HumanEval_127_intersection",
+      "status": "compile_error",
+      "detail": "Problem.java:29: error: cannot find symbol\n        if (interval1.getValue1() > interval2.getValue1() || interval1.getValue2() < interval2.getValue2()) {\n                                                                      ^\n  symbol:   method getValue2()\n  location: variable interval1 of type Pair<Long,Long>\nProblem.java:29: error: cannot find symbol\n        if (interval1.getValue1() > interval2.getValue1() || interval1.getValue2() < interval2.getValue2()) {\n                                    ",
+      "completion": "        if (interval1.getValue1() > interval2.getValue1() || interval1.getValue2() < interval2.getValue2()) {\n            return \"NO\";\n        }\n        long start = Math.max(interval1.getValue1(), interval2.getValue1());\n        long end = Math.min(interval1.getValue2(), interval2.getValue2());\n        if (end - start == 1) {\n            return \"YES\";\n        }\n        for (long i = start; i <= end; i++) {\n            if (isPrime(i)) {\n                return \"YES\";\n            }\n        }\n        return \"NO\";"
+    },
+    {
+      "name": "HumanEval_128_prod_signs",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        if (arr.isEmpty()) return Optional.empty();\n        long sum = 0;\n        for (long num : arr) {\n            if (num == 0) return Optional.of(0l);\n            if (num > 0) sum += 1l;\n            else if (num < 0) sum -= 1l;\n        }\n        return Optional.of(sum);"
+    },
+    {
+      "name": "HumanEval_129_minPath",
+      "status": "compile_error",
+      "detail": "Problem.java:50: error: cannot find symbol\n                int nx = x + dx[i];\n                             ^\n  symbol:   variable dx\n  location: class Problem\nProblem.java:51: error: cannot find symbol\n                int ny = y + dy[i];\n                             ^\n  symbol:   variable dy\n  location: class Problem\n2 errors\n",
+      "completion": "        // Write your code here\n        ArrayList<Long> result = new ArrayList<>();\n        int n = grid.size();\n        int m = grid.get(0).size();\n        int[][] visited = new int[n][m];\n        Queue<int[]> queue = new LinkedList<>();\n        queue.add(new int[]{0, 0});\n        visited[0][0] = 1;\n        while (!queue.isEmpty()) {\n            int[] curr = queue.poll();\n            int x = curr[0];\n            int y = curr[1];\n            if (x == n - 1 && y == m - 1) {\n                result.add(grid.get(n - 1).get(m - 1));\n                break;\n            }\n            for (int i = 0; i < 4; i++) {\n                int nx = x + dx[i];\n                int ny = y + dy[i];\n                if (nx >= 0 && nx < n && ny >= 0 && ny < m) {\n                    if (visited[nx][ny] == 0) {\n                        visited[nx][ny] = 1;\n                        queue.add(new int[]{nx, ny});\n                    }\n                }\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_130_tri",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:48)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        if (n == 0) {\n            result.add((long)0l);\n            return result;\n        }\n        if (n == 1) {\n            result.add((long)1l);\n            return result;\n        }\n        if (n == 2) {\n            result.add((long)1l);\n            result.add((long)3l);\n            return result;\n        }\n        result.add((long)1l);\n        result.add((long)3l);\n        result.add((long)2l);\n        for (int i = 3; i <= n; i++) {\n            result.add((long)result.get(i - 1) + (long)result.get(i - 2) + (long)result.get(i - 3));\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_131_digits",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:35)\n",
+      "completion": "        long product = 1;\n        while (n > 0) {\n            int digit = (int) (n % 10);\n            if (digit % 2 != 0) {\n                product *= digit;\n            }\n            n /= 10;\n        }\n        return product;"
+    },
+    {
+      "name": "HumanEval_132_is_nested",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:40)\n",
+      "completion": "        int count = 0;\n        for (int i = 0; i < string.length(); i++) {\n            if (string.charAt(i) == '[') {\n                count++;\n            } else if (string.charAt(i) == ']') {\n                count--;\n            }\n            if (count < 0) {\n                return false;\n            }\n        }\n        return count == 0;"
+    },
+    {
+      "name": "HumanEval_133_sum_squares",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:33)\n",
+      "completion": "        long sum = 0;\n        for (Float f : lst) {\n            sum += (long) Math.pow(f.floatValue(), 2);\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_134_check_if_last_char_is_a_letter",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.StringIndexOutOfBoundsException: Index -1 out of bounds for length 1\n\tat java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:55)\n\tat java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:52)\n\tat java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:213)\n\tat java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:210)\n\tat java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:98)\n\tat",
+      "completion": "        if (txt.length() == 0) {\n            return false;\n        }\n        char lastChar = txt.charAt(txt.length() - 1);\n        if (Character.isLetter(lastChar) && !Character.isLetter(txt.charAt(txt.length() - 2))) {\n            return true;\n        }\n        return false;"
+    },
+    {
+      "name": "HumanEval_135_can_arrange",
+      "status": "compile_error",
+      "detail": "Problem.java:74: error: ')' or ',' expected\n        Arrays.sort(arr    }\n                       ^\n1 error\n",
+      "completion": "        long max = arr.get(0);\n        for (int i = 1; i < arr.size(); i++) {\n            if (arr.get(i) > max) {\n                max = arr.get(i);\n            }\n        }\n        long[] arr2 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr2[i] = arr.get(i);\n        }\n        Arrays.sort(arr2);\n        long[] arr3 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr3[i] = arr2[i];\n        }\n        Arrays.sort(arr3);\n        long[] arr4 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr4[i] = arr3[i];\n        }\n        Arrays.sort(arr4);\n        long[] arr5 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr5[i] = arr4[i];\n        }\n        Arrays.sort(arr5);\n        long[] arr6 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr6[i] = arr5[i];\n        }\n        Arrays.sort(arr6);\n        long[] arr7 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr7[i] = arr6[i];\n        }\n        Arrays.sort(arr7);\n        long[] arr8 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr8[i] = arr7[i];\n        }\n        Arrays.sort(arr8);\n        long[] arr9 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr9[i] = arr8[i];\n        }\n        Arrays.sort(arr9);\n        long[] arr10 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr10[i] = arr9[i];\n        }\n        Arrays.sort(arr10);\n        long[] arr11 = new long[arr.size()];\n        for (int i = 0; i < arr.size(); i++) {\n            arr11[i] = arr10[i];\n        }\n        Arrays.sort(arr"
+    },
+    {
+      "name": "HumanEval_136_largest_smallest_integers",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:41)\n",
+      "completion": "        // Write your code here\n        Optional<Long> largest = Optional.empty();\n        Optional<Long> smallest = Optional.empty();\n        for (Long l : lst) {\n            if (l < 0) {\n                if (largest.isEmpty()) {\n                    largest = Optional.of(l);\n                } else {\n                    largest = Optional.of(l > largest.get() ? l : largest.get());\n                }\n            } else if (l > 0) {\n                if (smallest.isEmpty()) {\n                    smallest = Optional.of(l);\n                } else {\n                    smallest = Optional.of(l < smallest.get() ? l : smallest.get());\n                }\n            }\n        }\n        return Pair.with(largest, smallest);"
+    },
+    {
+      "name": "HumanEval_138_is_equal_to_sum_even",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:23)\n",
+      "completion": "        // TODO: Implement this method\n        return false;"
+    },
+    {
+      "name": "HumanEval_139_special_factorial",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:21)\n",
+      "completion": "        // TODO: Implement the function\n        return 0;"
+    },
+    {
+      "name": "HumanEval_140_fix_spaces",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:25)\n",
+      "completion": "        // TODO: Implement me\n        return text;"
+    },
+    {
+      "name": "HumanEval_141_file_name_check",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        // TODO: Implement this function\n        return \"No\";"
+    },
+    {
+      "name": "HumanEval_142_sum_squares",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:29)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < lst.size(); i++) {\n            if (i % 3 == 0 || i % 4 == 0) {\n                sum += lst.get(i) * lst.get(i);\n            }\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_143_words_in_sentence",
+      "status": "compile_error",
+      "detail": "Problem.java:27: error: cannot find symbol\n            if (isPrime(word.length())) {\n                ^\n  symbol:   method isPrime(int)\n  location: class Problem\n1 error\n",
+      "completion": "        String[] words = sentence.split(\" \");\n        List<String> primeWords = new ArrayList<>();\n        for (String word : words) {\n            if (isPrime(word.length())) {\n                primeWords.add(word);\n            }\n        }\n        return String.join(\" \", primeWords);"
+    },
+    {
+      "name": "HumanEval_144_simplify",
+      "status": "compile_error",
+      "detail": "Problem.java:114: error: ')' expected\n        if (n1 == 1    }\n                   ^\nProblem.java:114: error: illegal start of statement\n        if (n1 == 1    }\n                       ^\n2 errors\n",
+      "completion": "        // Your code here\n        int x1 = Integer.parseInt(x);\n        int n1 = Integer.parseInt(n);\n        if (n1 == 0) {\n            return false;\n        }\n        if (x1 == 0) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1) {\n            return true;\n        }\n        if (x1 == 1) {\n            return false;\n        }\n        if (n1 == 1"
+    },
+    {
+      "name": "HumanEval_145_order_by_points",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.NullPointerException: Cannot invoke \"java.util.ArrayList.equals(Object)\" because the return value of \"Problem.orderByPoints(java.util.ArrayList)\" is null\n\tat Problem.main(Problem.java:22)\n",
+      "completion": "        // TODO\n        return null;"
+    },
+    {
+      "name": "HumanEval_146_specialFilter",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        long count = 0;\n        for (long num : nums) {\n            if (num > 10 && (num % 10) % 2 != 0 && (num % 100) % 2 != 0) {\n                count++;\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_147_get_max_triples",
+      "status": "compile_error",
+      "detail": "Problem.java:20: error: incompatible types: possible lossy conversion from long to int\n        long[] a = new long[n];\n                            ^\n1 error\n",
+      "completion": "        long[] a = new long[n];\n        for (int i = 0; i < n; i++) {\n            a[i] = i * i - i + 1;\n        }\n        long count = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                for (int k = j + 1; k < n; k++) {\n                    if ((a[i] + a[j] + a[k]) % 3 == 0) {\n                        count++;\n                    }\n                }\n            }\n        }\n        return count;"
+    },
+    {
+      "name": "HumanEval_148_bf",
+      "status": "compile_error",
+      "detail": "Problem.java:81: error: unclosed string literal\n            if (planet1.equals(\"Neptune    }\n                               ^\nProblem.java:82: error: illegal start of expression\n    public static void main(String[] args) {\n    ^\nProblem.java:27: error: 'try' without 'catch', 'finally' or resource declarations\n        try {\n        ^\n3 errors\n",
+      "completion": "        ArrayList<String> planets = new ArrayList<String>();\n        try {\n            planets.add(planet1);\n            planets.add(planet2);\n            if (planet1.equals(\"Mercury\") || planet2.equals(\"Mercury\")) {\n                planets.add(\"Venus\");\n            }\n            if (planet1.equals(\"Venus\") || planet2.equals(\"Venus\")) {\n                planets.add(\"Earth\");\n            }\n            if (planet1.equals(\"Earth\") || planet2.equals(\"Earth\")) {\n                planets.add(\"Mars\");\n            }\n            if (planet1.equals(\"Mars\") || planet2.equals(\"Mars\")) {\n                planets.add(\"Jupiter\");\n            }\n            if (planet1.equals(\"Jupiter\") || planet2.equals(\"Jupiter\")) {\n                planets.add(\"Saturn\");\n            }\n            if (planet1.equals(\"Saturn\") || planet2.equals(\"Saturn\")) {\n                planets.add(\"Uranus\");\n            }\n            if (planet1.equals(\"Uranus\") || planet2.equals(\"Uranus\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune\") || planet2.equals(\"Neptune\")) {\n                planets.add(\"Pluto\");\n            }\n            if (planet1.equals(\"Pluto\") || planet2.equals(\"Pluto\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune\") || planet2.equals(\"Neptune\")) {\n                planets.add(\"Pluto\");\n            }\n            if (planet1.equals(\"Pluto\") || planet2.equals(\"Pluto\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune\") || planet2.equals(\"Neptune\")) {\n                planets.add(\"Pluto\");\n            }\n            if (planet1.equals(\"Pluto\") || planet2.equals(\"Pluto\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune\") || planet2.equals(\"Neptune\")) {\n                planets.add(\"Pluto\");\n            }\n            if (planet1.equals(\"Pluto\") || planet2.equals(\"Pluto\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune\") || planet2.equals(\"Neptune\")) {\n                planets.add(\"Pluto\");\n            }\n            if (planet1.equals(\"Pluto\") || planet2.equals(\"Pluto\")) {\n                planets.add(\"Neptune\");\n            }\n            if (planet1.equals(\"Neptune"
+    },
+    {
+      "name": "HumanEval_149_sorted_list_sum",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:40)\n",
+      "completion": "        ArrayList<String> result = new ArrayList<String>();\n        for (String s : lst) {\n            if (s.length() % 2 == 0) {\n                result.add(s);\n            }\n        }\n        Collections.sort(result);\n        return result;"
+    },
+    {
+      "name": "HumanEval_150_x_or_y",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:28)\n",
+      "completion": "        if (n == 1) {\n            return y;\n        } else if (n == 2) {\n            return x;\n        } else if (n % 2 == 0) {\n            return xOrY(n / 2, x, y);\n        } else {\n            return xOrY(n - 1, x, y);\n        }"
+    },
+    {
+      "name": "HumanEval_151_double_the_difference",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:33)\n",
+      "completion": "        long sum = 0;\n        for (int i = 0; i < lst.size(); i++) {\n            if (lst.get(i) % 2 != 0) {\n                sum += lst.get(i) * lst.get(i);\n            }\n        }\n        return sum;"
+    },
+    {
+      "name": "HumanEval_152_compare",
+      "status": "pass",
+      "detail": "",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (int i = 0; i < game.size(); i++) {\n            if (game.get(i).equals(guess.get(i))) {\n                result.add(0L);\n            } else {\n                result.add(Math.abs(game.get(i) - guess.get(i)));\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_153_Strongest_Extension",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:51)\n",
+      "completion": "        int strength = 0;\n        String strongest = \"\";\n        for (String extension : extensions) {\n            int strength_extension = 0;\n            int strength_class = 0;\n            for (char c : extension.toCharArray()) {\n                if (Character.isUpperCase(c)) {\n                    strength_extension++;\n                } else {\n                    strength_class++;\n                }\n            }\n            if (strength_extension > strength_class) {\n                strength = strength_extension;\n                strongest = extension;\n            } else if (strength_extension == strength_class) {\n                if (extension.compareTo(strongest) < 0) {\n                    strength = strength_extension;\n                    strongest = extension;\n                }\n            }\n        }\n        return class_name + \".\" + strongest;"
+    },
+    {
+      "name": "HumanEval_154_cycpattern_check",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:36)\n",
+      "completion": "        if (a.length() != b.length()) {\n            return false;\n        }\n        String brot = b;\n        for (int i = 0; i < b.length(); i++) {\n            brot = brot.substring(1) + brot.charAt(0);\n            if (brot.contains(a)) {\n                return true;\n            }\n        }\n        return false;"
+    },
+    {
+      "name": "HumanEval_155_even_odd_count",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        long even = 0;\n        long odd = 0;\n        while (num > 0) {\n            long digit = num % 10;\n            if (digit % 2 == 0) {\n                even++;\n            } else {\n                odd++;\n            }\n            num /= 10;\n        }\n        return Pair.with(even, odd);"
+    },
+    {
+      "name": "HumanEval_156_int_to_mini_roman",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:23)\n",
+      "completion": "        // TODO: Implement this method\n        return \"\";"
+    },
+    {
+      "name": "HumanEval_157_right_angle_triangle",
+      "status": "pass",
+      "detail": "",
+      "completion": "        return (a*a + b*b == c*c || a*a + c*c == b*b || b*b + c*c == a*a);"
+    },
+    {
+      "name": "HumanEval_158_find_max",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:30)\n",
+      "completion": "        // Write your code here\n        String max = words.get(0);\n        for (String word : words) {\n            if (word.length() > max.length()) {\n                max = word;\n            }\n        }\n        return max;"
+    },
+    {
+      "name": "HumanEval_159_eat",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:46)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        if (number > need) {\n            result.add(number - need);\n            result.add(remaining - need);\n        } else {\n            result.add(number);\n            result.add(remaining);\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_160_do_algebra",
+      "status": "compile_error",
+      "detail": "Problem.java:39: error: incompatible types: possible lossy conversion from double to long\n                result = Math.pow(result, operand.get(i));\n                                 ^\n1 error\n",
+      "completion": "        long result = 0;\n        for (int i = 0; i < op.size(); i++) {\n            if (op.get(i).equals(\"+\")) {\n                result += operand.get(i);\n            } else if (op.get(i).equals(\"-\")) {\n                result -= operand.get(i);\n            } else if (op.get(i).equals(\"*\")) {\n                result *= operand.get(i);\n            } else if (op.get(i).equals(\"//\")) {\n                result /= operand.get(i);\n            } else if (op.get(i).equals(\"**\")) {\n                result = Math.pow(result, operand.get(i));\n            }\n        }\n        return result;"
+    },
+    {
+      "name": "HumanEval_161_solve",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:45)\n",
+      "completion": "        if (s.matches(\"[a-zA-Z]+\")) {\n            char[] arr = s.toCharArray();\n            for (int i = 0; i < arr.length; i++) {\n                if (Character.isLowerCase(arr[i])) {\n                    arr[i] = Character.toUpperCase(arr[i]);\n                } else {\n                    arr[i] = Character.toLowerCase(arr[i]);\n                }\n            }\n            return new String(arr);\n        } else {\n            char[] arr = s.toCharArray();\n            for (int i = 0; i < arr.length; i++) {\n                if (Character.isLowerCase(arr[i])) {\n                    arr[i] = Character.toUpperCase(arr[i]);\n                } else {\n                    arr[i] = Character.toLowerCase(arr[i]);\n                }\n            }\n            return new String(arr);\n        }"
+    },
+    {
+      "name": "HumanEval_162_string_to_md5",
+      "status": "pass",
+      "detail": "",
+      "completion": "        if (text == null || text.isEmpty()) {\n            return Optional.empty();\n        }\n        try {\n            MessageDigest md = MessageDigest.getInstance(\"MD5\");\n            byte[] digest = md.digest(text.getBytes());\n            StringBuilder sb = new StringBuilder();\n            for (byte b : digest) {\n                sb.append(String.format(\"%02x\", b));\n            }\n            return Optional.of(sb.toString());\n        } catch (NoSuchAlgorithmException e) {\n            throw new RuntimeException(e);\n        }"
+    },
+    {
+      "name": "HumanEval_163_generate_integers",
+      "status": "runtime_fail",
+      "detail": "Exception in thread \"main\" java.lang.AssertionError\n\tat Problem.main(Problem.java:27)\n",
+      "completion": "        ArrayList<Long> result = new ArrayList<Long>();\n        for (long i = a; i <= b; i++) {\n            if (i % 2 == 0) {\n                result.add(i);\n            }\n        }\n        return result;"
+    }
+  ]
+}

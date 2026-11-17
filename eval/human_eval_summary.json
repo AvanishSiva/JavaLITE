@@ -1,0 +1,15 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-0.5B",
+  "total_problems": 158,
+  "contamination_checked": false,
+  "n_contaminated": 0,
+  "contaminated": [],
+  "scored": 158,
+  "passed": 36,
+  "pass@1_pct": 22.78,
+  "status_counts": {
+    "runtime_fail": 99,
+    "pass": 36,
+    "compile_error": 23
+  }
+}
