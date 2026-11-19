@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch, re, subprocess, tempfile, pathlib, json
+import torch, re, subprocess, tempfile, pathlib, json, sys, csv, datetime
 
 MODEL = "Qwen/Qwen2.5-Coder-0.5B-Instruct"
 tok = AutoTokenizer.from_pretrained(MODEL)
@@ -32,6 +32,7 @@ EXAMPLE_REPLY = """<<<<<<< SEARCH
         return amount * (1 + rate);
     }
 >>>>>>> REPLACE"""
+
 
 PREFILL = "<<<<<<< SEARCH\n"
 
@@ -70,8 +71,13 @@ def apply_blocks(source, reply):
     source = norm(source)
     for search, rpl in blocks:
         search = norm(search)
-        if not search.strip() or source.count(search) != 1:
-            return None, "search_not_found_or_ambiguous"
+        if not search.strip():
+            return None, "search_empty"
+        hits = source.count(search)
+        if hits == 0:
+            return None, "search_not_found"
+        if hits > 1:
+            return None, "search_ambiguous"
         source = source.replace(search, clean(rpl))
     return source, "ok"
 
@@ -89,6 +95,12 @@ def run(cmd, cwd):
     except subprocess.TimeoutExpired:
         return None
 
+def err_text(r):
+    """javac/java error output for diagnosis (or 'timeout')."""
+    if r is None:
+        return "timeout"
+    return (r.stderr or r.stdout).strip()[:2000]
+
 def score_task(t):
     reply = generate(t["before"], t["instruction"]).replace("\r\n", "\n")
     cls = re.search(r"public\s+(?:final\s+)?class\s+(\w+)", t["before"]).group(1)
@@ -97,28 +109,30 @@ def score_task(t):
     if new_src is None:
         new_src, mode = whole_file_fallback(reply, cls), "wholefile"
     if new_src is None:
-        return status, status, reply
+        return status, status, reply, ""
     with tempfile.TemporaryDirectory() as d:
         pathlib.Path(d, f"{cls}.java").write_text(new_src)
         pathlib.Path(d, "Test.java").write_text(t["test"])
         r = run(["javac", f"{cls}.java", "Test.java"], d)
         if r is None or r.returncode != 0:
-            return "compile_fail", mode, reply
+            return "compile_fail", mode, reply, err_text(r)
         r = run(["java", "-cp", ".", "Test"], d)
         if r is None or r.returncode != 0:
-            return "test_fail", mode, reply
-    return "pass", mode, reply
+            return "test_fail", mode, reply, err_text(r)
+    return "pass", mode, reply, ""
 
 paths = sorted(pathlib.Path("eval/edit_tasks").glob("*.json"))
 tasks = [json.loads(p.read_text()) for p in paths]
 results = []
 with open("edit_outputs.jsonl", "w") as f:
     for t in tasks:
-        status, mode, reply = score_task(t)
+        status, mode, reply, error = score_task(t)
         results.append((status, mode))
         print(t["id"], status, mode)
+        if error:  
+            print("    ", error.splitlines()[0])
         f.write(json.dumps({"id": t["id"], "type": t["type"], "status": status,
-                            "mode": mode, "reply": reply}) + "\n")
+                            "mode": mode, "error": error, "reply": reply}) + "\n")
 
 n = len(tasks)
 strict = sum(s == "pass" and m == "block" for s, m in results)
@@ -129,3 +143,22 @@ print(f"lenient pass (+ whole file): {lenient}/{n} = {lenient/n:.3f}")
 print(f"format ok:                   {fmt_ok}/{n} = {fmt_ok/n:.3f}")
 for s in sorted({s for s, _ in results}):
     print(s, sum(x == s for x, _ in results))
+
+if "--record" in sys.argv:
+    def git(*args):
+        try:
+            return subprocess.run(["git", *args], capture_output=True, text=True).stdout.strip()
+        except OSError:
+            return ""
+    commit = git("rev-parse", "--short", "HEAD") or "unknown"
+    if git("status", "--porcelain", "--untracked-files=no"):
+        commit += "-dirty"  # uncommitted changes: the hash doesn't fully describe this run
+    out = pathlib.Path("results.csv")
+    new = not out.exists()
+    with out.open("a", newline="") as fh:
+        w = csv.writer(fh)
+        if new:
+            w.writerow(["date", "commit", "model", "edit_pass_strict", "edit_pass_lenient", "format_ok", "n"])
+        w.writerow([datetime.date.today().isoformat(), commit, MODEL,
+                    f"{strict/n:.3f}", f"{lenient/n:.3f}", f"{fmt_ok/n:.3f}", n])
+    print(f"recorded to results.csv (commit {commit})")
