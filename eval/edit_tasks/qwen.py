@@ -8,29 +8,32 @@ model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float16).t
 SYSTEM = """You edit one Java file.
 SEARCH = a few lines copied unchanged from the ORIGINAL file (before your change).
 REPLACE = those same lines after your change.
-Only include the lines that change. Reply with ONLY the blocks, no explanations."""
+Change the lines in place. Do not add new methods unless the task asks for one.
+Reply with ONLY the blocks, no explanations."""
 
-EXAMPLE_FILE = """public class Counter {
-    private int n;
+EXAMPLE_FILE = """public class Price {
+    public static double withTax(double amount) {
+        return amount * 1.2;
+    }
 
-    public void inc() {
-        n++;
+    public static String label(double amount) {
+        return "EUR " + amount;
     }
 }"""
 
+EXAMPLE_TASK = "Make withTax take the tax rate as a second parameter rate instead of using 1.2."
+
 EXAMPLE_REPLY = """<<<<<<< SEARCH
-    public void inc() {
-        n++;
+    public static double withTax(double amount) {
+        return amount * 1.2;
     }
 =======
-    public void inc() {
-        n++;
-    }
-
-    public void reset() {
-        n = 0;
+    public static double withTax(double amount, double rate) {
+        return amount * (1 + rate);
     }
 >>>>>>> REPLACE"""
+
+PREFILL = "<<<<<<< SEARCH\n"
 
 BLOCK = re.compile(r"<<<<<<< SEARCH[ \t]*\n(.*?)\n=======[ \t]*\n(.*?)\n?>>>>>>> REPLACE", re.S)
 FENCE = re.compile(r"```(?:java)?[ \t]*\n(.*?)```", re.S)
@@ -43,13 +46,13 @@ def user_msg(source, instruction):
 
 def generate(source, instruction):
     msgs = [{"role": "system", "content": SYSTEM},
-            {"role": "user", "content": user_msg(EXAMPLE_FILE, "Add a method reset() that sets n back to 0.")},
+            {"role": "user", "content": user_msg(EXAMPLE_FILE, EXAMPLE_TASK)},
             {"role": "assistant", "content": EXAMPLE_REPLY},
             {"role": "user", "content": user_msg(source, instruction)}]
-    enc = tok.apply_chat_template(msgs, add_generation_prompt=True,
-                                  return_tensors="pt", return_dict=True).to("cuda")
+    prompt = tok.apply_chat_template(msgs, add_generation_prompt=True, tokenize=False) + PREFILL
+    enc = tok(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
     out = model.generate(**enc, max_new_tokens=768, do_sample=False)
-    return tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True)
+    return PREFILL + tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True)
 
 def norm(text):
     """Normalise line endings and strip trailing whitespace on each line."""
