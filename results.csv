@@ -1,2 +1,6 @@
 model,metric,value,date
 Qwen2.5-Coder-0.5B,bits_per_byte,0.3024,2026-11-10
+Qwen2.5-Coder-0.5B,FIM_compile_rate,80.7,2026-11-15
+Qwen2.5-Coder-0.5B,HumanEval-Java,0.22,2026-11-17
+Qwen2.5-Coder-0.5B,edit_pass_strict,0.2,2026-11-19
+Qwen2.5-Coder-0.5B,format_ok,0.640,2026-11-19
